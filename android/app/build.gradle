@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.grand9.app"
+    namespace "com.mccallmedia.app"
     defaultConfig {
-        applicationId "com.grand9.app"
+        applicationId "com.mccallmedia.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3

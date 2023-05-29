@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Grand9.app"
-               BlueprintName = "Grand9"
-               ReferencedContainer = "container:Grand9.xcodeproj">
+               BuildableName = "McCallMedia.app"
+               BlueprintName = "McCallMedia"
+               ReferencedContainer = "container:McCallMedia.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "Grand9Tests.xctest"
-               BlueprintName = "Grand9Tests"
-               ReferencedContainer = "container:Grand9.xcodeproj">
+               BuildableName = "McCallMediaTests.xctest"
+               BlueprintName = "McCallMediaTests"
+               ReferencedContainer = "container:McCallMedia.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Grand9.app"
-            BlueprintName = "Grand9"
-            ReferencedContainer = "container:Grand9.xcodeproj">
+            BuildableName = "McCallMedia.app"
+            BlueprintName = "McCallMedia"
+            ReferencedContainer = "container:McCallMedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Grand9.app"
-            BlueprintName = "Grand9"
-            ReferencedContainer = "container:Grand9.xcodeproj">
+            BuildableName = "McCallMedia.app"
+            BlueprintName = "McCallMedia"
+            ReferencedContainer = "container:McCallMedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

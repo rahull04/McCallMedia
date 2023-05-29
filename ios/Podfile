@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'Grand9' do
+target 'McCallMedia' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,7 +43,7 @@ target 'Grand9' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'Grand9Tests' do
+  target 'McCallMediaTests' do
     inherit! :complete
     # Pods for testing
   end

@@ -1,4 +1,4 @@
-package com.grand9.app;
+package com.mccallmedia.app;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Grand9";
+    return "McCallMedia";
   }
 
   @Override

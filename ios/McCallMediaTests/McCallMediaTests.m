@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface Grand9Tests : XCTestCase
+@interface McCallMediaTests : XCTestCase
 
 @end
 
-@implementation Grand9Tests
+@implementation McCallMediaTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

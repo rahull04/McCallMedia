@@ -5,9 +5,6 @@ import {name as appName} from './app.json';
 import React from 'react';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistedStore, store} from './store';
-import './localization/i18n';
-import {Amplify} from 'aws-amplify';
-import {awsConfig} from './config/awsConfig';
 
 // Restart metro server once changing below value
 const enableNetworkDebugging = false;
@@ -32,7 +29,6 @@ if (__DEV__ && enableNetworkDebugging) {
   }
 }
 
-Amplify.configure({Auth: awsConfig});
 
 const MainApp = () => (
   <Provider store={store}>

@@ -50,7 +50,7 @@ const Splash: FunctionComponent<
             opacity: fadeAnimationRef,
           },
         ]}
-        source={theme.icon.grand9}
+        source={theme.icon.drone}
       />
     </Screen>
   );
