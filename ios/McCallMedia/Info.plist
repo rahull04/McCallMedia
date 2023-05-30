@@ -39,6 +39,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Give $(PRODUCT_NAME) permission to use your microphone</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
