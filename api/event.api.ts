@@ -1,6 +1,6 @@
 import {Logger, POST} from '../lib';
 
-const logger = new Logger({name: 'BookSprayApi'});
+const logger = new Logger({name: 'EventApi'});
 
 export const addVoice = async (recording: string) => {
   const formData = new FormData();

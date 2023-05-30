@@ -9,11 +9,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {addVoice} from '../api';
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
-
-interface Data {
-  recordSecs: null | number;
-  recordTime: null | string;
-}
+audioRecorderPlayer.setSubscriptionDuration(0.09);
 
 export interface AddVoiceProps {}
 
@@ -22,7 +18,7 @@ const AddVoice: FunctionComponent<
 > = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
-  const [data, setData] = useState<Data>({
+  const [data, setData] = useState({
     recordSecs: 0,
     recordTime: '00:00',
   });
@@ -33,14 +29,17 @@ const AddVoice: FunctionComponent<
   });
   const [recording, setRecording] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [recordingComplete, setRecordingComplete] = useState(false);
 
   const onStartRecord = async () => {
+    setRecording(null);
     const dirs = RNFetchBlob.fs.dirs;
     const path = Platform.select({
       ios: `${dirs.DocumentDir}/hello.m4a`,
       android: `${dirs.DownloadDir}/hello.mp3`,
     });
-    await audioRecorderPlayer.startRecorder(path);
+    const uri = await audioRecorderPlayer.startRecorder(path);
+    setRecording(uri);
     audioRecorderPlayer.addRecordBackListener(e => {
       const mmss = audioRecorderPlayer
         .mmssss(Math.floor(e.currentPosition))
@@ -56,18 +55,17 @@ const AddVoice: FunctionComponent<
   };
 
   const onStopRecord = async () => {
-    const result = await audioRecorderPlayer.stopRecorder();
+    await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
     setData({
       recordSecs: 0,
       recordTime: '00:00',
     });
+    setRecordingComplete(true);
     setShowSnackBar({
       visible: true,
       title: 'Recording saved successfully',
     });
-    setRecording(result);
-    console.log(result);
   };
 
   const onSubmit = async () => {
@@ -90,7 +88,7 @@ const AddVoice: FunctionComponent<
         <View style={styles.circle}>
           <Image
             source={
-              (recording !== null && theme.icon.green_check) ||
+              (!startRecording && recording && theme.icon.green_check) ||
               (startRecording && theme.icon.microphone_on) ||
               theme.icon.microphone_off
             }
@@ -100,6 +98,7 @@ const AddVoice: FunctionComponent<
         </View>
         <Button
           title={startRecording ? 'Stop' : 'Start'}
+          style={startRecording && styles.redButton}
           onPress={() => {
             if (startRecording) {
               setStartRecording(false);
@@ -112,7 +111,7 @@ const AddVoice: FunctionComponent<
         />
         <Button
           title="Submit"
-          disabled={!recording}
+          disabled={!recordingComplete}
           loading={loading}
           onPress={onSubmit}
         />
@@ -151,5 +150,8 @@ const makeStyles = (theme: GlobalThemeType) =>
       position: 'absolute',
       top: 10,
       alignSelf: 'center',
+    },
+    redButton: {
+      backgroundColor: theme.color.red,
     },
   });
