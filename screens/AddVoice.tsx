@@ -35,7 +35,7 @@ const AddVoice: FunctionComponent<
     setRecording(null);
     const dirs = RNFetchBlob.fs.dirs;
     const path = Platform.select({
-      ios: `${dirs.DocumentDir}/hello.m4a`,
+      ios: 'hello.m4a',
       android: `${dirs.DownloadDir}/hello.mp3`,
     });
     const uri = await audioRecorderPlayer.startRecorder(path);
