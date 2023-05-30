@@ -54,7 +54,7 @@ const Login: FunctionComponent<
 
   return (
     <Screen type="fixed" header={<Header />}>
-      <Image source={theme.icon.drone} style={styles.appLogo} />
+      <Image source={theme.icon.appIcon} style={styles.appLogo} />
       <Text text="Login" style={styles.screenTitle} />
       <TextInput
         value={loginData.userName.value}
@@ -106,7 +106,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       marginBottom: 15,
     },
     appLogo: {
-      width: 80,
+      width: 200,
       height: 80,
       alignSelf: 'center',
       marginBottom: theme.spacing.sizes[4],

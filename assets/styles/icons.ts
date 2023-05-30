@@ -1,6 +1,6 @@
 import calculatorActive from '../icons/calculator_active.png';
 import calculatorInActive from '../icons/calculator_inactive.png';
-import drone from '../icons/drone.png';
+import appIcon from '../icons/splash_icon.png';
 import homeActive from '../icons/home_active.png';
 import homeInActive from '../icons/home_inactive.png';
 import profileActive from '../icons/profile_active.png';
@@ -23,7 +23,7 @@ import speaker from '../icons/speaker.png';
 export const globalIcons = {
   calculator_active: calculatorActive,
   calculator_inactive: calculatorInActive,
-  drone: drone,
+  appIcon: appIcon,
   home_active: homeActive,
   home_inactive: homeInActive,
   profile_active: profileActive,

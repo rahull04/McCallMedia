@@ -59,7 +59,7 @@ const Splash: FunctionComponent<
             opacity: fadeAnimationRef,
           },
         ]}
-        source={theme.icon.drone}
+        source={theme.icon.appIcon}
       />
     </Screen>
   );
@@ -76,8 +76,8 @@ const makeStyles = (theme: GlobalThemeType) =>
       justifyContent: 'center',
     },
     appIcon: {
-      width: 170,
-      height: 170,
+      width: '100%',
+      height: 200,
       alignSelf: 'center',
     },
     farmer: {
