@@ -3,7 +3,7 @@ import React, {FunctionComponent, useCallback, useEffect, useRef} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useConnectionState, useTheme} from '../lib';
+import {GlobalThemeType, useConnectionState, useStore, useTheme} from '../lib';
 
 const Splash: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Splash'>
@@ -12,10 +12,19 @@ const Splash: FunctionComponent<
   const styles = makeStyles(theme);
   const connectionState = useConnectionState();
   const fadeAnimationRef = useRef(new Animated.Value(0)).current;
+  const {
+    states: {
+      user: {isAuthenticated},
+    },
+  } = useStore();
 
   const checkIfAuthenticated = useCallback(async () => {
-    navigation.replace('Login');
-  }, [navigation]);
+    if (isAuthenticated) {
+      navigation.navigate('Home');
+    } else {
+      navigation.replace('Login');
+    }
+  }, [navigation, isAuthenticated]);
 
   useEffect(() => {
     if (connectionState?.isConnected === null) {

@@ -2,9 +2,10 @@ import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, Text, TextInput} from '../components';
 import {Image, StyleSheet} from 'react-native';
-import {GlobalThemeType, Logger, useTheme} from '../lib';
+import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
+import {loginUserRequest} from '../store';
 export interface LoginProps {}
 
 const logger = new Logger({name: 'Login'});
@@ -14,7 +15,7 @@ const Login: FunctionComponent<
 > = ({navigation}) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
-
+  const {updateState} = useStore();
   const [loginData, setLoginData] = useState({
     userName: {
       value: '',
@@ -35,6 +36,10 @@ const Login: FunctionComponent<
         loginData.userName.value === '123' &&
         loginData.password.value === '123'
       ) {
+        updateState(loginUserRequest, {
+          userName: loginData.userName.value,
+          password: loginData.password.value,
+        });
         navigation.dispatch(
           CommonActions.reset({
             index: 1,

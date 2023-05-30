@@ -14,9 +14,6 @@ export const userStore = createSlice({
       state.profile = action.payload;
       state.isAuthenticated = true;
     },
-    updateProfileRequest: (state, action) => {
-      state.profile = action.payload;
-    },
     logOutUserRequest: state => {
       state.profile = undefined;
       state.isAuthenticated = false;
@@ -24,6 +21,5 @@ export const userStore = createSlice({
   },
 });
 
-export const {loginUserRequest, updateProfileRequest, logOutUserRequest} =
-  userStore.actions;
+export const {loginUserRequest, logOutUserRequest} = userStore.actions;
 export default userStore.reducer;
