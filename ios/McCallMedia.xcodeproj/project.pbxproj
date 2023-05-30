@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* McCallMediaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* McCallMediaTests.m */; };
 		0792A4330BAD4D9CB7B6AE22 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C2C54E0AC9C144BA9E307C12 /* OFL.txt */; };
-		0C80B921A6F3F58F76C31292 /* libPods-McCallMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-McCallMedia.a */; };
 		0C9C55DB62E741648DC3455F /* CormorantGaramond-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB2B91D5455545CD8B800C8B /* CormorantGaramond-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -17,12 +16,13 @@
 		1D5438FC414444E29CEB61FD /* CormorantGaramond-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 291E215A78FF463AAD77F101 /* CormorantGaramond-Medium.ttf */; };
 		20AE6F95215440F3A26827A5 /* CormorantGaramond-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAFEB707F1A14873A8256BD6 /* CormorantGaramond-Light.ttf */; };
 		62D32DC0D94F41E681989254 /* CormorantGaramond-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAE10E11AABB446491FB5B89 /* CormorantGaramond-Italic.ttf */; };
+		641EDF776D95F26D70B83993 /* libPods-McCallMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A8896D2941A4E8B53E84EC /* libPods-McCallMedia.a */; };
 		6609DEF3C88446C7B988FA37 /* CormorantGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E84EB3F56BC448A4B2DF6476 /* CormorantGaramond-SemiBoldItalic.ttf */; };
 		6AD217279AD644ABA7247EB3 /* CormorantGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E681489D1D9E47D4A09E2DE1 /* CormorantGaramond-SemiBold.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-McCallMedia-McCallMediaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-McCallMedia-McCallMediaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		845B76CBD2804E4887BE97BD /* CormorantGaramond-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E9CA4F38F8342B28CB6632F /* CormorantGaramond-LightItalic.ttf */; };
 		8B14028427FD4A9A8508C4F5 /* CormorantGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C641849C242B086A9B48A /* CormorantGaramond-Regular.ttf */; };
+		95F0569A6DCDEDB1376A8932 /* libPods-McCallMedia-McCallMediaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CF0BD2371865479349C79B7 /* libPods-McCallMedia-McCallMediaTests.a */; };
 		D6E9F732C4674B06A92C7C6A /* CormorantGaramond-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 411AA2E457A844BEA9A2AECA /* CormorantGaramond-MediumItalic.ttf */; };
 		E31DBD91FA494A4C8C5F0687 /* CormorantGaramond-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B9991B0C59A4CE1A8240967 /* CormorantGaramond-BoldItalic.ttf */; };
 /* End PBXBuildFile section */
@@ -41,27 +41,27 @@
 		00E356EE1AD99517003FC87E /* McCallMediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = McCallMediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* McCallMediaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = McCallMediaTests.m; sourceTree = "<group>"; };
+		0F7A5AFDBC624C15433AAC81 /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia-McCallMediaTests.release.xcconfig"; path = "Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* McCallMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = McCallMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = McCallMedia/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = McCallMedia/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = McCallMedia/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = McCallMedia/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = McCallMedia/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-McCallMedia-McCallMediaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-McCallMedia-McCallMediaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		291E215A78FF463AAD77F101 /* CormorantGaramond-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-Medium.ttf"; path = "../assets/fonts/CormorantGaramond-Medium.ttf"; sourceTree = "<group>"; };
 		2A0C641849C242B086A9B48A /* CormorantGaramond-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-Regular.ttf"; path = "../assets/fonts/CormorantGaramond-Regular.ttf"; sourceTree = "<group>"; };
 		341B5FF129D89A91005C9CEC /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		341B5FF329D89B52005C9CEC /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-McCallMedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia.debug.xcconfig"; path = "Target Support Files/Pods-McCallMedia/Pods-McCallMedia.debug.xcconfig"; sourceTree = "<group>"; };
 		411AA2E457A844BEA9A2AECA /* CormorantGaramond-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-MediumItalic.ttf"; path = "../assets/fonts/CormorantGaramond-MediumItalic.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-McCallMedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia.release.xcconfig"; path = "Target Support Files/Pods-McCallMedia/Pods-McCallMedia.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia-McCallMediaTests.debug.xcconfig"; path = "Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-McCallMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-McCallMedia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54A8896D2941A4E8B53E84EC /* libPods-McCallMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-McCallMedia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = McCallMedia/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia-McCallMediaTests.release.xcconfig"; path = "Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests.release.xcconfig"; sourceTree = "<group>"; };
 		8E9CA4F38F8342B28CB6632F /* CormorantGaramond-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-LightItalic.ttf"; path = "../assets/fonts/CormorantGaramond-LightItalic.ttf"; sourceTree = "<group>"; };
 		9B9991B0C59A4CE1A8240967 /* CormorantGaramond-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-BoldItalic.ttf"; path = "../assets/fonts/CormorantGaramond-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9CF0BD2371865479349C79B7 /* libPods-McCallMedia-McCallMediaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-McCallMedia-McCallMediaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EC49D0843D2760582F993B3 /* Pods-McCallMedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia.release.xcconfig"; path = "Target Support Files/Pods-McCallMedia/Pods-McCallMedia.release.xcconfig"; sourceTree = "<group>"; };
+		B780AB27D1F16CAED4DBEF77 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia-McCallMediaTests.debug.xcconfig"; path = "Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BAFEB707F1A14873A8256BD6 /* CormorantGaramond-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-Light.ttf"; path = "../assets/fonts/CormorantGaramond-Light.ttf"; sourceTree = "<group>"; };
+		BBDF340280EE945B674168BE /* Pods-McCallMedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-McCallMedia.debug.xcconfig"; path = "Target Support Files/Pods-McCallMedia/Pods-McCallMedia.debug.xcconfig"; sourceTree = "<group>"; };
 		C2C54E0AC9C144BA9E307C12 /* OFL.txt */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OFL.txt; path = ../assets/fonts/OFL.txt; sourceTree = "<group>"; };
 		CAE10E11AABB446491FB5B89 /* CormorantGaramond-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-Italic.ttf"; path = "../assets/fonts/CormorantGaramond-Italic.ttf"; sourceTree = "<group>"; };
 		CB2B91D5455545CD8B800C8B /* CormorantGaramond-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CormorantGaramond-Bold.ttf"; path = "../assets/fonts/CormorantGaramond-Bold.ttf"; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-McCallMedia-McCallMediaTests.a in Frameworks */,
+				95F0569A6DCDEDB1376A8932 /* libPods-McCallMedia-McCallMediaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-McCallMedia.a in Frameworks */,
+				641EDF776D95F26D70B83993 /* libPods-McCallMedia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,8 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-McCallMedia.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-McCallMedia-McCallMediaTests.a */,
+				54A8896D2941A4E8B53E84EC /* libPods-McCallMedia.a */,
+				9CF0BD2371865479349C79B7 /* libPods-McCallMedia-McCallMediaTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -193,10 +193,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-McCallMedia.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-McCallMedia.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */,
+				BBDF340280EE945B674168BE /* Pods-McCallMedia.debug.xcconfig */,
+				9EC49D0843D2760582F993B3 /* Pods-McCallMedia.release.xcconfig */,
+				B780AB27D1F16CAED4DBEF77 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */,
+				0F7A5AFDBC624C15433AAC81 /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -208,12 +208,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "McCallMediaTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				02BD38BF07CA07B89259D15E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				C423AC39B05A4D233199961D /* [CP] Embed Pods Frameworks */,
+				76F4E4AF2D7F9911511350A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,14 +229,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "McCallMedia" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				F29642F110BA8A182E840D7A /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				016D91D51D2F0549F6B8B2AD /* [CP] Embed Pods Frameworks */,
+				4FDA7692D5E85B79F4259A22 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -330,7 +330,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		016D91D51D2F0549F6B8B2AD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,7 +347,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		02BD38BF07CA07B89259D15E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,7 +369,58 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		4FDA7692D5E85B79F4259A22 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76F4E4AF2D7F9911511350A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C423AC39B05A4D233199961D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F29642F110BA8A182E840D7A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,57 +440,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia/Pods-McCallMedia-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-McCallMedia-McCallMediaTests/Pods-McCallMedia-McCallMediaTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -494,7 +494,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */;
+			baseConfigurationReference = B780AB27D1F16CAED4DBEF77 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -521,7 +521,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */;
+			baseConfigurationReference = 0F7A5AFDBC624C15433AAC81 /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -545,7 +545,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-McCallMedia.debug.xcconfig */;
+			baseConfigurationReference = BBDF340280EE945B674168BE /* Pods-McCallMedia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -574,7 +574,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-McCallMedia.release.xcconfig */;
+			baseConfigurationReference = 9EC49D0843D2760582F993B3 /* Pods-McCallMedia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -632,7 +632,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -704,7 +704,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

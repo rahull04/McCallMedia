@@ -1,10 +1,4 @@
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {Text} from './Text';
 import {GlobalThemeType, useTheme} from '../../lib';
@@ -13,8 +7,6 @@ interface SnackbarProps {
   visible: boolean;
   title?: string;
   subTitle?: string;
-  titleTx?: string;
-  subTitleTx?: string;
   onDismiss: () => void;
 }
 
@@ -38,7 +30,7 @@ export const Snackbar = ({
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <View style={styles.wrapper}>
       <View style={styles.content}>
         <Text text={title} style={styles.title} />
         <Text text={subTitle} style={styles.subTitle} />
@@ -46,7 +38,7 @@ export const Snackbar = ({
       <TouchableOpacity style={styles.iconContainer} onPress={onDismiss}>
         <Image style={styles.icon} source={theme.icon.closeCircle} />
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
