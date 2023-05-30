@@ -1,8 +1,7 @@
 import React, {useMemo} from 'react';
 import {Appbar} from 'react-native-paper';
 import {GlobalThemeType, useTheme} from '../../lib';
-import {Platform, StyleSheet, View} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {StyleSheet} from 'react-native';
 import {Text} from './Text';
 
 interface ButtonItem {
@@ -17,25 +16,7 @@ interface HeaderProps {
   readonly showAppName?: boolean;
 }
 
-const getIcon = (icon: string, onPress: () => void) => {
-  switch (icon) {
-    case 'back':
-      return <Appbar.BackAction key={icon} onPress={onPress} />;
-    case 'close':
-      return (
-        <MaterialIcons key={icon} name="close" size={24} onPress={onPress} />
-      );
-    default:
-      null;
-  }
-};
-
-export const Header = ({
-  title,
-  leftButtons,
-  rightButtons,
-  showAppName = false,
-}: HeaderProps) => {
+export const Header = ({title, showAppName = false}: HeaderProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
 
@@ -48,11 +29,7 @@ export const Header = ({
 
   return (
     <Appbar.Header style={styles.header}>
-      {leftButtons?.map(button => getIcon(button.icon, button.onPress))}
       <Appbar.Content title={titleValue} titleStyle={styles.title as any} />
-      <View style={styles.rightButtonsContainer}>
-        {rightButtons?.map(button => getIcon(button.icon, button.onPress))}
-      </View>
     </Appbar.Header>
   );
 };
@@ -86,6 +63,5 @@ const makeStyles = (theme: GlobalThemeType) =>
       alignSelf: 'center',
       fontSize: 20,
       fontWeight: '500',
-      marginRight: Platform.OS === 'ios' ? 18 : 0,
     },
   });

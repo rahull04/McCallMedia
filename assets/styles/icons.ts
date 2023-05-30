@@ -19,6 +19,8 @@ import appName from '../icons/app_name.png';
 import info_black from '../icons/info_black.png';
 
 import speaker from '../icons/speaker.png';
+import microphone_off from '../icons/microphone_off.png';
+import microphone_on from '../icons/microphone_on.png';
 
 export const globalIcons = {
   calculator_active: calculatorActive,
@@ -41,4 +43,6 @@ export const globalIcons = {
   app_name: appName,
   info_black: info_black,
   speaker: speaker,
+  microphone_off: microphone_off,
+  microphone_on: microphone_on,
 };
