@@ -7,7 +7,7 @@ import {logOutUserRequest} from '../store';
 import {FlatList, StyleSheet} from 'react-native';
 export interface LoginProps {}
 
-const Home: FunctionComponent<
+const CompanyEvent: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Home'>
 > = ({navigation}) => {
   const {dispatchAction} = useStore();
@@ -46,7 +46,7 @@ const Home: FunctionComponent<
   );
 };
 
-export default Home;
+export default CompanyEvent;
 
 const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
