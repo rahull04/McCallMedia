@@ -1,0 +1,126 @@
+import React, {FunctionComponent, useState} from 'react';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Button, Header, Screen, TextInput} from '../components';
+import {RootStackParamList} from '../navigation/stack.navigation';
+import {GlobalThemeType, useTheme} from '../lib';
+import {StyleSheet} from 'react-native';
+export interface AddDetailsProps {}
+
+const AddDetails: FunctionComponent<
+  NativeStackScreenProps<RootStackParamList, 'AddDetails'>
+> = () => {
+  const theme = useTheme();
+  const styles = makeStyles(theme);
+  const [details, setDetails] = useState({
+    name: {
+      value: '',
+      validation: '',
+    },
+    company: {
+      value: '',
+      validation: '',
+    },
+    position: {
+      value: '',
+      validation: '',
+    },
+    location: {
+      value: '',
+      validation: '',
+    },
+  });
+  const submitButtonDisabled =
+    !details.name.value ||
+    !details.company.value ||
+    !details.position.value ||
+    !details.location.value;
+
+  return (
+    <Screen
+      type="fixed"
+      style={styles.screen}
+      header={<Header title="Person name" />}>
+      <TextInput
+        value={details.name.value}
+        label="Name"
+        onChangeText={value =>
+          setDetails({
+            ...details,
+            name: {
+              ...details.name,
+              value: value,
+            },
+          })
+        }
+      />
+      <TextInput
+        value={details.company.value}
+        label="Company"
+        onChangeText={value =>
+          setDetails({
+            ...details,
+            company: {
+              ...details.company,
+              value: value,
+            },
+          })
+        }
+      />
+      <TextInput
+        value={details.position.value}
+        label="Position"
+        onChangeText={value =>
+          setDetails({
+            ...details,
+            position: {
+              ...details.position,
+              value: value,
+            },
+          })
+        }
+      />
+      <TextInput
+        value={details.location.value}
+        label="Location"
+        onChangeText={value =>
+          setDetails({
+            ...details,
+            location: {
+              ...details.location,
+              value: value,
+            },
+          })
+        }
+      />
+      <Button
+        style={styles.button}
+        disabled={submitButtonDisabled}
+        onPress={() => {}}
+        title="Submit"
+      />
+    </Screen>
+  );
+};
+
+export default AddDetails;
+
+const makeStyles = (theme: GlobalThemeType) =>
+  StyleSheet.create({
+    screenTitle: {
+      fontSize: theme.spacing.sizes[7],
+      textAlign: 'center',
+      color: theme.color.black,
+    },
+    button: {
+      marginTop: 25,
+    },
+    appLogo: {
+      width: 80,
+      height: 80,
+      alignSelf: 'center',
+      marginBottom: theme.spacing.sizes[4],
+    },
+    screen: {
+      padding: 8,
+    },
+  });
