@@ -44,6 +44,7 @@ interface TextInputProps {
   textColor?: string;
   containerStyle?: StyleProp<ViewStyle>;
   version?: 'v1' | 'v2';
+  secureTextEntry?: boolean;
 }
 
 export const TextInput = forwardRef(
@@ -66,6 +67,7 @@ export const TextInput = forwardRef(
       textColor,
       containerStyle,
       version = 'v1',
+      secureTextEntry,
     }: TextInputProps,
     ref,
   ) => {
@@ -106,6 +108,7 @@ export const TextInput = forwardRef(
           maxLength={maxLength}
           onPressIn={onPressIn}
           ref={ref as any}
+          secureTextEntry={secureTextEntry}
           left={
             leftIcon && (
               <TextInputComponent.Icon

@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Appbar} from 'react-native-paper';
 import {GlobalThemeType, useTheme} from '../../lib';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Text} from './Text';
 
@@ -41,10 +41,10 @@ export const Header = ({
 
   const titleValue = useMemo(() => {
     if (showAppName) {
-      return <Text text="App name" />;
+      return <Text text="Exhibitor Company" style={styles.appName} />;
     }
     return title;
-  }, [showAppName, title]);
+  }, [showAppName, title, styles.appName]);
 
   return (
     <Appbar.Header style={styles.header}>
@@ -83,7 +83,9 @@ const makeStyles = (theme: GlobalThemeType) =>
       height: 40,
     },
     appName: {
-      height: 20,
-      width: 80,
+      alignSelf: 'center',
+      fontSize: 20,
+      fontWeight: '500',
+      marginRight: Platform.OS === 'ios' ? 18 : 0,
     },
   });

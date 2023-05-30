@@ -18,6 +18,8 @@ import grand9 from '../icons/grand9.png';
 import appName from '../icons/app_name.png';
 import info_black from '../icons/info_black.png';
 
+import speaker from '../icons/speaker.png';
+
 export const globalIcons = {
   calculator_active: calculatorActive,
   calculator_inactive: calculatorInActive,
@@ -38,4 +40,5 @@ export const globalIcons = {
   grand9: grand9,
   app_name: appName,
   info_black: info_black,
+  speaker: speaker,
 };

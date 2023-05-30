@@ -1,11 +1,10 @@
 import React from 'react';
 import Login from '../screens/Login';
-import {TabNav} from './tab.navigation';
+import Home from '../screens/Home';
 
 export type RootStackParamList = {
   Splash: undefined;
   Login: undefined;
-  HomeTab: undefined;
   Home: undefined;
   NoNetwork: undefined;
 };
@@ -13,7 +12,7 @@ export type RootStackParamList = {
 export const getAuthenticatedScreenStack = (AppStack: any) => (
   <>
     {/* Authenticated stack */}
-    <AppStack.Screen name="HomeTab" component={TabNav} />
+    <AppStack.Screen name="Home" component={Home} />
   </>
 );
 

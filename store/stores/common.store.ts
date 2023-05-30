@@ -1,9 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {SupportedLanguages} from '../../lib';
 import {CommonState} from '../types';
 
 const initialState: CommonState = {
-  language: SupportedLanguages.ENGLISH,
+  loading: false,
 };
 
 export const commonStore = createSlice({
@@ -11,7 +10,7 @@ export const commonStore = createSlice({
   initialState,
   reducers: {
     setLanguageRequest: (state, action) => {
-      state.language = action.payload;
+      state.loading = action.payload;
     },
   },
 });

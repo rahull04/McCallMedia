@@ -1,13 +1,13 @@
 import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button} from '../components';
-import {StyleSheet, View} from 'react-native';
+import {Button, Header, Screen, Text, TextInput} from '../components';
+import {Image, StyleSheet} from 'react-native';
 import {GlobalThemeType, Logger, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
 export interface LoginProps {}
 
-const logger = new Logger({name: 'SignUp'});
+const logger = new Logger({name: 'Login'});
 
 const Login: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -16,66 +16,94 @@ const Login: FunctionComponent<
   const styles = makeStyles(theme);
 
   const [loginData, setLoginData] = useState({
-    phone: {
+    userName: {
+      value: '',
+      validation: '',
+    },
+    password: {
       value: '',
       validation: '',
     },
   });
 
+  const loginButtonDisabled =
+    !loginData.userName.value || !loginData.password.value;
+
   const onLogin = async () => {
     try {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [{name: 'HomeTab'}],
-        }),
-      );
+      if (
+        loginData.userName.value === '123' &&
+        loginData.password.value === '123'
+      ) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{name: 'Home'}],
+          }),
+        );
+      }
     } catch (err) {
       logger.error('Error while initiating login for user', err);
     }
   };
 
   return (
-    <View>
-      <Button style={styles.button} onPress={onLogin} title="Login" />
-    </View>
+    <Screen type="fixed" header={<Header />}>
+      <Image source={theme.icon.drone} style={styles.appLogo} />
+      <Text text="Login" style={styles.screenTitle} />
+      <TextInput
+        value={loginData.userName.value}
+        label="Username"
+        onChangeText={value =>
+          setLoginData({
+            ...loginData,
+            userName: {
+              ...loginData.userName,
+              value: value,
+            },
+          })
+        }
+      />
+      <TextInput
+        value={loginData.password.value}
+        label="Password"
+        secureTextEntry={true}
+        onChangeText={value =>
+          setLoginData({
+            ...loginData,
+            password: {
+              ...loginData.password,
+              value: value,
+            },
+          })
+        }
+      />
+      <Button
+        style={styles.button}
+        disabled={loginButtonDisabled}
+        onPress={onLogin}
+        title="Sign in"
+      />
+    </Screen>
   );
 };
 
 export default Login;
 
-const makeStyles = (_theme: GlobalThemeType) =>
+const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
-    forgotPassword: {
-      width: '100%',
+    screenTitle: {
+      fontSize: theme.spacing.sizes[7],
       textAlign: 'center',
-      marginBottom: 15,
-    },
-    signupContainer: {
-      marginBottom: 15,
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-    },
-    signUpButton: {
-      marginLeft: 8,
-    },
-    signUpButtonText: {
-      fontWeight: '600',
-    },
-    inputText: {
-      marginBottom: 20,
-      width: 250,
-    },
-    inputText2: {
-      marginBottom: 20,
+      color: theme.color.black,
     },
     button: {
       marginBottom: 15,
     },
-    wrapper: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '100%',
+    appLogo: {
+      width: 80,
+      height: 80,
+      alignSelf: 'center',
+      marginBottom: theme.spacing.sizes[4],
     },
   });

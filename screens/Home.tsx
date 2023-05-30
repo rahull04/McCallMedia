@@ -1,15 +1,18 @@
 import React, {FunctionComponent} from 'react';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Screen} from '../components';
-import {Header} from '../components';
-import {ParamListBase} from '@react-navigation/native';
-
-export interface HomeProps {}
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {EventListItem, Header, Screen} from '../components';
+import {RootStackParamList} from '../navigation/stack.navigation';
+export interface LoginProps {}
 
 const Home: FunctionComponent<
-  NativeStackScreenProps<ParamListBase, 'Home'>
+  NativeStackScreenProps<RootStackParamList, 'Home'>
 > = () => {
-  return <Screen type="fixed" header={<Header showAppName={true} />}></Screen>;
+  return (
+    <Screen type="fixed" header={<Header showAppName={true} />}>
+      <EventListItem eventName="Event 1" />
+      <EventListItem eventName="Event 2" />
+    </Screen>
+  );
 };
 
 export default Home;
