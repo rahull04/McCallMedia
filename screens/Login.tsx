@@ -6,6 +6,8 @@ import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {loginUserRequest} from '../store';
+import CheckBox from 'react-native-check-box';
+
 export interface LoginProps {}
 
 const logger = new Logger({name: 'Login'});
@@ -26,6 +28,7 @@ const Login: FunctionComponent<
       validation: '',
     },
   });
+  const [keepLogin, setKeepLogin] = useState(false);
 
   const loginButtonDisabled =
     !loginData.userName.value || !loginData.password.value;
@@ -83,6 +86,15 @@ const Login: FunctionComponent<
           })
         }
       />
+      <CheckBox
+        style={styles.checkBox}
+        checkBoxColor={theme.color.primaryColor}
+        onClick={() => {
+          setKeepLogin(!keepLogin);
+        }}
+        isChecked={keepLogin}
+        rightText={'Remember'}
+      />
       <Button
         style={styles.button}
         disabled={loginButtonDisabled}
@@ -110,5 +122,8 @@ const makeStyles = (theme: GlobalThemeType) =>
       height: 80,
       alignSelf: 'center',
       marginBottom: theme.spacing.sizes[4],
+    },
+    checkBox: {
+      padding: 10,
     },
   });
