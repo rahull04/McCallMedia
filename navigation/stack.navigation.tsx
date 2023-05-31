@@ -4,6 +4,8 @@ import Home from '../screens/Home';
 import AddVoice, {AddVoiceProps} from '../screens/AddVoice';
 import AddPhoto, {AddPhotoProps} from '../screens/AddPhoto';
 import AddDetails, {AddDetailsProps} from '../screens/AddDetails';
+import CompanyEvent from '../screens/CompanyEvent';
+import QRScanner from '../screens/QRScanner';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -13,6 +15,8 @@ export type RootStackParamList = {
   AddVoice: AddVoiceProps;
   AddPhoto: AddPhotoProps;
   AddDetails: AddDetailsProps;
+  CompanyEvent: undefined;
+  QRScanner: undefined;
 };
 
 export const getAuthenticatedScreenStack = (AppStack: any) => (
@@ -22,6 +26,8 @@ export const getAuthenticatedScreenStack = (AppStack: any) => (
     <AppStack.Screen name="AddVoice" component={AddVoice} />
     <AppStack.Screen name="AddPhoto" component={AddPhoto} />
     <AppStack.Screen name="AddDetails" component={AddDetails} />
+    <AppStack.Screen name="CompanyEvent" component={CompanyEvent} />
+    <AppStack.Screen name="QRScanner" component={QRScanner} />
   </>
 );
 

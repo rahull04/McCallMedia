@@ -2,18 +2,15 @@ import {Logger, POST} from '../lib';
 
 const logger = new Logger({name: 'BookSprayApi'});
 
-interface SignUpBody {
-  name: string;
-  phone: string;
-  villageName: string;
-  pincode: string;
-  userId: string;
+interface SignInBody {
+  username: string;
+  password: string;
 }
 
-export const signUp = async (body: SignUpBody) => {
+export const signUp = async (body: SignInBody) => {
   try {
-    const response = await POST('/signup', body);
-    logger.log('Signup submitted', response);
+    const response = await POST('/signin', body);
+    logger.log('Signin submitted', response);
     return response.data;
   } catch (err) {
     logger.error('Error while submitting signup for data', body, err);

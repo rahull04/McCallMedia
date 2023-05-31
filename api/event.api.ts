@@ -1,4 +1,4 @@
-import {Logger, POST} from '../lib';
+import {GET, Logger, POST} from '../lib';
 
 const logger = new Logger({name: 'EventApi'});
 
@@ -48,6 +48,17 @@ export const addPhoto = async (imageUri: string) => {
 export const addDetails = async (body: EventDetailsBody) => {
   try {
     const response = await POST('/event/add-details', body);
+    logger.log('Event details submitted', response);
+    return response.data;
+  } catch (err) {
+    logger.error('Error while adding event details', body, err);
+    throw err;
+  }
+};
+
+export const getEventList = async (body: EventDetailsBody) => {
+  try {
+    const response = await GET('/event/event-list');
     logger.log('Event details submitted', response);
     return response.data;
   } catch (err) {
