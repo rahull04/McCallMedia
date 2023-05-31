@@ -2,11 +2,14 @@ import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useTheme} from '../lib';
+import {GlobalThemeType, Logger, useTheme} from '../lib';
 import {Alert, Image, StyleSheet, View} from 'react-native';
 import {launchCamera} from 'react-native-image-picker';
 import {CameraOptions} from 'react-native-image-picker';
 import {Asset} from 'react-native-image-picker';
+import {addPhoto} from '../api';
+
+const logger = new Logger({name: 'AddVoice'});
 
 export interface AddPhotoProps {}
 
@@ -24,9 +27,14 @@ const AddPhoto: FunctionComponent<
 
   const onSubmit = async () => {
     try {
+      if (!capturedImage?.[0]?.uri) {
+        return;
+      }
       setLoading(true);
+      await addPhoto(capturedImage?.[0]?.uri);
     } catch (err) {
-      Alert.alert('Error while adding new voice');
+      logger.error('Error while adding new voice', err);
+      Alert.alert('Error while adding new photo');
     } finally {
       setLoading(false);
     }
@@ -53,6 +61,7 @@ const AddPhoto: FunctionComponent<
       <Button title="Capture" onPress={onCapture} />
       <Button
         title="Submit"
+        mode="secondary"
         onPress={onSubmit}
         disabled={!capturedImage}
         loading={loading}
