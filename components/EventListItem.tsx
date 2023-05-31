@@ -1,19 +1,26 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Text} from './common';
 import {GlobalThemeType, useTheme} from '../lib';
 
 interface EventListItemProps {
   eventName: string;
+  onPress?(): void;
 }
 
-export const EventListItem = ({eventName}: EventListItemProps) => {
+export const EventListItem = ({eventName, onPress}: EventListItemProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return (
     <View style={styles.container}>
-      <Image source={theme.icon.speaker} style={styles.speaker} />
-      <Text style={styles.eventName} text={eventName} />
+      <TouchableOpacity
+        style={styles.childContainer}
+        onPress={() => {
+          onPress && onPress();
+        }}>
+        <Image source={theme.icon.speaker} style={styles.speaker} />
+        <Text style={styles.eventName} text={eventName} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,5 +44,9 @@ const makeStyles = (theme: GlobalThemeType) =>
       color: theme.color.black,
       fontSize: 18,
       marginTop: 12,
+    },
+    childContainer: {
+      flex: 1,
+      flexDirection: 'row',
     },
   });

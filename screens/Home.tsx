@@ -3,14 +3,14 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, EventListItem, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, useStore, useTheme} from '../lib';
-import {logOutUserRequest} from '../store';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {CommonActions} from '@react-navigation/native';
+
 export interface LoginProps {}
 
 const Home: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Home'>
 > = ({navigation}) => {
-  const {dispatchAction} = useStore();
   const [data, setData] = useState<string[]>([]);
 
   const theme = useTheme();
@@ -18,7 +18,7 @@ const Home: FunctionComponent<
 
   useEffect(() => {
     var temp = [];
-    for (var i = 1; i < 10; i++) {
+    for (var i = 1; i < 4; i++) {
       temp.push('Event' + i);
     }
     setData(temp);
@@ -26,22 +26,30 @@ const Home: FunctionComponent<
 
   return (
     <Screen type="fixed" header={<Header showAppName={true} />}>
-      <FlatList
-        style={styles.flatListContent}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        refreshing={false}
-        renderItem={({item: group}) => <EventListItem eventName="Event 1" />}
-        data={data}
-        onRefresh={null}
-      />
-      <Button
-        title="Log out"
-        onPress={() => {
-          dispatchAction(logOutUserRequest);
-          navigation.replace('Login');
-        }}
-      />
+      <View style={styles.container}>
+        <FlatList
+          style={styles.flatListContent}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          refreshing={false}
+          renderItem={({item: group}) => (
+            <EventListItem
+              eventName="Event 1"
+              onPress={() => {
+                navigation.dispatch(CommonActions.navigate('CompanyEvent'));
+              }}
+            />
+          )}
+          data={data}
+          onRefresh={null}
+        />
+        <Button
+          title="Scan QR"
+          onPress={() => {
+            navigation.dispatch(CommonActions.navigate('QRScanner'));
+          }}
+        />
+      </View>
     </Screen>
   );
 };
@@ -50,6 +58,10 @@ export default Home;
 
 const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      marginBottom: theme.spacing.sizes[7],
+    },
     flatListContent: {
       flexGrow: 0,
       backgroundColor: theme.color.white,
