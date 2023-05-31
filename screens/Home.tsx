@@ -4,8 +4,7 @@ import {Button, EventListItem, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, useStore, useTheme} from '../lib';
 import {logOutUserRequest} from '../store';
-import {FlatList, StyleSheet} from 'react-native';
-export interface LoginProps {}
+import {FlatList, Platform, StyleSheet} from 'react-native';
 
 const Home: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Home'>
@@ -34,6 +33,7 @@ const Home: FunctionComponent<
         renderItem={({item: group}) => <EventListItem eventName="Event 1" />}
         data={data}
         onRefresh={null}
+        contentContainerStyle={styles.contentContainerStyle}
       />
       <Button
         title="Log out"
@@ -62,5 +62,11 @@ const makeStyles = (theme: GlobalThemeType) =>
       paddingVertical: 8,
       borderBottomColor: theme.color.black,
       borderBottomWidth: 0.5,
+    },
+    contentContainerStyle: {
+      paddingBottom: Platform.select({
+        android: 100,
+        ios: 200,
+      }),
     },
   });

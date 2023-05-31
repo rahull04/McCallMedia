@@ -6,7 +6,7 @@ import {GlobalThemeType, Logger, useTheme} from '../lib';
 import {Alert, StyleSheet} from 'react-native';
 import {addDetails} from '../api';
 
-const logger = new Logger({name: 'AddVoice'});
+const logger = new Logger({name: 'AddDetails'});
 
 export interface AddDetailsProps {}
 

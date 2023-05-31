@@ -9,7 +9,7 @@ import {CameraOptions} from 'react-native-image-picker';
 import {Asset} from 'react-native-image-picker';
 import {addPhoto} from '../api';
 
-const logger = new Logger({name: 'AddVoice'});
+const logger = new Logger({name: 'AddPhoto'});
 
 export interface AddPhotoProps {}
 
@@ -48,15 +48,14 @@ const AddPhoto: FunctionComponent<
   return (
     <Screen type="fixed" header={<Header title="Person name" />}>
       <View style={styles.circle}>
-        {!capturedImage ? (
-          <Image source={theme.icon.add_image} style={styles.user} />
-        ) : null}
         {capturedImage ? (
           <Image
             source={{uri: capturedImage?.[0]?.uri}}
             style={styles.capturedImage}
           />
-        ) : null}
+        ) : (
+          <Image source={theme.icon.add_image} style={styles.user} />
+        )}
       </View>
       <Button title="Capture" onPress={onCapture} />
       <Button

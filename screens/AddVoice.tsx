@@ -20,35 +20,38 @@ const AddVoice: FunctionComponent<
 > = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
-  const [data, setData] = useState({
+  const [recordingData, setRecordingData] = useState({
     recordSecs: 0,
     recordTime: '00:00',
   });
-  const [startRecording, setStartRecording] = useState(false);
-  const [showSnackBar, setShowSnackBar] = useState({
+  const [isRecording, setIsRecording] = useState(false);
+  const [snackBar, setSnackBar] = useState({
     visible: false,
     title: '',
   });
-  const [recording, setRecording] = useState<string | null>(null);
+  const [recordingUri, setRecordingUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [recordingComplete, setRecordingComplete] = useState(false);
+  const [isRecordingComplete, setIsRecordingComplete] = useState(false);
 
   const onStartRecord = async () => {
-    setRecording(null);
+    setRecordingUri(null);
     const dirs = RNFetchBlob.fs.dirs;
     const path = Platform.select({
       ios: 'hello.m4a',
       android: `${dirs.DownloadDir}/hello.mp3`,
     });
     const uri = await audioRecorderPlayer.startRecorder(path);
-    setRecording(uri);
+    setRecordingUri(uri); // Save audio uri to state
+
+    // Add a listener for audio recording changes
     audioRecorderPlayer.addRecordBackListener(e => {
+      // Convert mm:ss:ss to mm:ss
       const mmss = audioRecorderPlayer
         .mmssss(Math.floor(e.currentPosition))
         .split(':')
         .slice(0, 2)
         .join(':');
-      setData({
+      setRecordingData({
         recordSecs: e.currentPosition,
         recordTime: mmss,
       });
@@ -57,14 +60,17 @@ const AddVoice: FunctionComponent<
   };
 
   const onStopRecord = async () => {
+    // Stop recording
     await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
-    setData({
+
+    // Reset recording data
+    setRecordingData({
       recordSecs: 0,
       recordTime: '00:00',
     });
-    setRecordingComplete(true);
-    setShowSnackBar({
+    setIsRecordingComplete(true);
+    setSnackBar({
       visible: true,
       title: 'Recording saved successfully',
     });
@@ -72,11 +78,11 @@ const AddVoice: FunctionComponent<
 
   const onSubmit = async () => {
     try {
-      if (!recording) {
+      if (!recordingUri) {
         return;
       }
       setLoading(true);
-      await addVoice(recording);
+      await addVoice(recordingUri);
     } catch (err) {
       logger.error('Error while adding new voice', err);
       Alert.alert('Error while adding new voice');
@@ -91,23 +97,26 @@ const AddVoice: FunctionComponent<
         <View style={styles.circle}>
           <Image
             source={
-              (!startRecording && recording && theme.icon.green_check) ||
-              (startRecording && theme.icon.microphone_on) ||
+              (!isRecording && recordingUri && theme.icon.green_check) ||
+              (isRecording && theme.icon.microphone_on) ||
               theme.icon.microphone_off
             }
             style={styles.microphone}
           />
-          <Text text={data?.recordTime ?? ''} style={styles.duration} />
+          <Text
+            text={recordingData?.recordTime ?? ''}
+            style={styles.duration}
+          />
         </View>
         <Button
-          title={startRecording ? 'Stop' : 'Start'}
-          style={startRecording && styles.redButton}
+          title={isRecording ? 'Stop' : 'Start'}
+          style={isRecording && styles.redButton}
           onPress={() => {
-            if (startRecording) {
-              setStartRecording(false);
+            if (isRecording) {
+              setIsRecording(false);
               onStopRecord();
             } else {
-              setStartRecording(true);
+              setIsRecording(true);
               onStartRecord();
             }
           }}
@@ -115,15 +124,15 @@ const AddVoice: FunctionComponent<
         <Button
           title="Submit"
           mode="secondary"
-          disabled={!recordingComplete}
+          disabled={!isRecordingComplete}
           loading={loading}
           onPress={onSubmit}
         />
       </Screen>
       <Snackbar
-        visible={showSnackBar.visible}
-        onDismiss={() => setShowSnackBar({...showSnackBar, visible: false})}
-        title={showSnackBar.title}
+        visible={snackBar.visible}
+        onDismiss={() => setSnackBar({...snackBar, visible: false})}
+        title={snackBar.title}
       />
     </>
   );
