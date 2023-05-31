@@ -2,8 +2,12 @@ import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, TextInput} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useTheme} from '../lib';
-import {StyleSheet} from 'react-native';
+import {GlobalThemeType, Logger, useTheme} from '../lib';
+import {Alert, StyleSheet} from 'react-native';
+import {addDetails} from '../api';
+
+const logger = new Logger({name: 'AddVoice'});
+
 export interface AddDetailsProps {}
 
 const AddDetails: FunctionComponent<
@@ -29,11 +33,37 @@ const AddDetails: FunctionComponent<
       validation: '',
     },
   });
+  const [loading, setLoading] = useState(false);
   const submitButtonDisabled =
     !details.name.value ||
     !details.company.value ||
     !details.position.value ||
     !details.location.value;
+
+  const onSubmit = async () => {
+    try {
+      if (
+        !details.name.value ||
+        !details.company.value ||
+        !details.position.value ||
+        !details.location.value
+      ) {
+        return;
+      }
+      setLoading(true);
+      await addDetails({
+        name: details.name.value,
+        company: details.company.value,
+        position: details.position.value,
+        location: details.location.value,
+      });
+    } catch (err) {
+      logger.error('Error while adding new voice', err);
+      Alert.alert('Error while adding new details');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Screen
@@ -95,7 +125,8 @@ const AddDetails: FunctionComponent<
       <Button
         style={styles.button}
         disabled={submitButtonDisabled}
-        onPress={() => {}}
+        loading={loading}
+        onPress={onSubmit}
         title="Submit"
       />
     </Screen>

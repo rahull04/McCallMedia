@@ -2,11 +2,13 @@ import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, Snackbar, Text} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useTheme} from '../lib';
+import {GlobalThemeType, Logger, useTheme} from '../lib';
 import {Alert, Image, Platform, StyleSheet, View} from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import RNFetchBlob from 'rn-fetch-blob';
 import {addVoice} from '../api';
+
+const logger = new Logger({name: 'AddVoice'});
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 audioRecorderPlayer.setSubscriptionDuration(0.09);
@@ -76,6 +78,7 @@ const AddVoice: FunctionComponent<
       setLoading(true);
       await addVoice(recording);
     } catch (err) {
+      logger.error('Error while adding new voice', err);
       Alert.alert('Error while adding new voice');
     } finally {
       setLoading(false);
@@ -111,6 +114,7 @@ const AddVoice: FunctionComponent<
         />
         <Button
           title="Submit"
+          mode="secondary"
           disabled={!recordingComplete}
           loading={loading}
           onPress={onSubmit}
