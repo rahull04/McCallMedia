@@ -46,6 +46,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       fontSize: theme.spacing.sizes[5],
       fontWeight: 'bold',
       color: theme.color.dark,
+      alignSelf: 'center',
     },
     rightButtonsContainer: {
       marginRight: 8,
