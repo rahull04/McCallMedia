@@ -9,7 +9,7 @@ import {
   PermissionsManager,
   useTheme,
 } from '../lib';
-import {Alert, Image, Platform, StyleSheet, View} from 'react-native';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {addVoice} from '../api';
 import {RESULTS} from 'react-native-permissions';
@@ -76,10 +76,6 @@ const AddVoice: FunctionComponent<
     }
     setIsRecording(true);
     setRecordingUri(null);
-    // const path = Platform.select({
-    //   ios: 'hello.m4a',
-    //   android: 'hello.mp3',
-    // });
     const uri = await audioRecorderPlayer.startRecorder();
     logger.log(`Recording uri path, ${uri}`);
     setRecordingUri(uri); // Save audio uri to state
