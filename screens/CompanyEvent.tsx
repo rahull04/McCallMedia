@@ -65,7 +65,9 @@ const CompanyEvent: FunctionComponent<
   };
 
   return (
-    <Screen type="fixed" header={<Header showAppName={true} />}>
+    <Screen
+      type="fixed"
+      header={<Header showAppName={true} showBackIcon={true} />}>
       <TabView
         navigationState={{
           index: tabIndex,

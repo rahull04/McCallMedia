@@ -5,7 +5,7 @@ export const globalStyles = StyleSheet.create({
   droidSafeArea: {
     flex: 1,
     backgroundColor: globalColors.primaryColor,
-    paddingTop: Platform.OS === 'android' ? 0 : 0,
+    paddingTop: Platform.OS === 'android' ? 0 : 40,
   },
   disabled: {
     opacity: 0.4,

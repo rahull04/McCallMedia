@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react';
-import {Appbar} from 'react-native-paper';
 import {GlobalThemeType, useTheme} from '../../lib';
-import {StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from './Text';
+import {useNavigation} from '@react-navigation/native';
 
 interface ButtonItem {
   icon: 'back' | 'close';
@@ -11,50 +11,65 @@ interface ButtonItem {
 
 interface HeaderProps {
   readonly title?: string;
-  readonly leftButtons?: ButtonItem[];
+  readonly showBackIcon?: boolean;
   readonly rightButtons?: ButtonItem[];
   readonly showAppName?: boolean;
 }
 
-export const Header = ({title, showAppName = false}: HeaderProps) => {
+export const Header = ({
+  title,
+  showAppName = false,
+  showBackIcon,
+}: HeaderProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const navigation = useNavigation();
 
   const titleValue = useMemo(() => {
     if (showAppName) {
-      return <Text text="Exhibitor Company" style={styles.appName} />;
+      return 'Exhibitor Company';
     }
     return title;
-  }, [showAppName, title, styles.appName]);
+  }, [showAppName, title]);
 
   return (
-    <Appbar.Header style={styles.header}>
-      <Appbar.Content title={titleValue} titleStyle={styles.title as any} />
-    </Appbar.Header>
+    <View style={styles.header}>
+      {showBackIcon ? (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image source={theme.icon.back_arrow} style={styles.backArrow} />
+        </TouchableOpacity>
+      ) : null}
+      <View style={styles.titleContainer}>
+        <Text text={titleValue} style={styles.title} />
+      </View>
+    </View>
   );
 };
 
 const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
     header: {
-      backgroundColor: theme.color.white,
+      backgroundColor: theme.color.primaryColor,
+      height: 60,
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '100%',
+      position: 'relative',
     },
     button: {
       marginRight: theme.spacing.sizes[4],
     },
+    titleContainer: {
+      position: 'absolute',
+      left: '32%',
+    },
     title: {
       fontSize: theme.spacing.sizes[5],
       fontWeight: 'bold',
-      color: theme.color.dark,
-      alignSelf: 'center',
+      color: theme.color.white,
     },
     rightButtonsContainer: {
       marginRight: 8,
-    },
-    info: {
-      height: 25,
-      width: 25,
-      marginRight: 12,
     },
     appIcon: {
       width: 60,
@@ -64,5 +79,11 @@ const makeStyles = (theme: GlobalThemeType) =>
       alignSelf: 'center',
       fontSize: 20,
       fontWeight: '500',
+      color: theme.color.white,
+    },
+    backArrow: {
+      width: 35,
+      height: 35,
+      marginLeft: 16,
     },
   });

@@ -20,7 +20,7 @@ const Splash: FunctionComponent<
 
   const checkIfAuthenticated = useCallback(async () => {
     if (isAuthenticated) {
-      navigation.navigate('Home');
+      navigation.replace('Home');
     } else {
       navigation.replace('Login');
     }
