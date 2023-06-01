@@ -2,16 +2,28 @@ import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, Snackbar, Text} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, Logger, useTheme} from '../lib';
+import {
+  GlobalThemeType,
+  Logger,
+  Permissions,
+  PermissionsManager,
+  useTheme,
+} from '../lib';
 import {Alert, Image, Platform, StyleSheet, View} from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
-import RNFetchBlob from 'rn-fetch-blob';
 import {addVoice} from '../api';
+import {RESULTS} from 'react-native-permissions';
 
 const logger = new Logger({name: 'AddVoice'});
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 audioRecorderPlayer.setSubscriptionDuration(0.09);
+
+const REQUIRED_PERMISSIONS = [
+  Permissions.MICROPHONE,
+  Permissions.PHOTO,
+  Permissions.READ_STORAGE,
+];
 
 export interface AddVoiceProps {}
 
@@ -28,19 +40,48 @@ const AddVoice: FunctionComponent<
   const [snackBar, setSnackBar] = useState({
     visible: false,
     title: '',
+    subtitle: '',
   });
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isRecordingComplete, setIsRecordingComplete] = useState(false);
 
+  // Check if all the required permissions are granted by the user
+  const checkPermissions = async () => {
+    let addedPermissions = 0;
+    for (const permission of REQUIRED_PERMISSIONS) {
+      const value = await PermissionsManager.request(permission as string);
+      console.log('value', value);
+      if (value === RESULTS.GRANTED) {
+        addedPermissions++;
+      }
+    }
+    if (addedPermissions !== REQUIRED_PERMISSIONS.length) {
+      return false;
+    }
+    return true;
+  };
+
   const onStartRecord = async () => {
+    const areAllPermissionsGranted = await checkPermissions();
+    logger.log('areAllPermissionsGranted', areAllPermissionsGranted);
+    if (!areAllPermissionsGranted) {
+      setSnackBar({
+        visible: true,
+        title: 'Error while recording the audio',
+        subtitle:
+          'Please grant MICROPHONE and STORAGE permissions to the app manually from the settings to proceed',
+      });
+      return;
+    }
+    setIsRecording(true);
     setRecordingUri(null);
-    const dirs = RNFetchBlob.fs.dirs;
-    const path = Platform.select({
-      ios: 'hello.m4a',
-      android: `${dirs.DownloadDir}/hello.mp3`,
-    });
-    const uri = await audioRecorderPlayer.startRecorder(path);
+    // const path = Platform.select({
+    //   ios: 'hello.m4a',
+    //   android: 'hello.mp3',
+    // });
+    const uri = await audioRecorderPlayer.startRecorder();
+    logger.log(`Recording uri path, ${uri}`);
     setRecordingUri(uri); // Save audio uri to state
 
     // Add a listener for audio recording changes
@@ -60,6 +101,7 @@ const AddVoice: FunctionComponent<
   };
 
   const onStopRecord = async () => {
+    setIsRecording(false);
     // Stop recording
     await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
@@ -72,7 +114,8 @@ const AddVoice: FunctionComponent<
     setIsRecordingComplete(true);
     setSnackBar({
       visible: true,
-      title: 'Recording saved successfully',
+      title: 'Recording successful',
+      subtitle: 'Please click on the submit button to save the recording',
     });
   };
 
@@ -113,10 +156,8 @@ const AddVoice: FunctionComponent<
           style={isRecording && styles.redButton}
           onPress={() => {
             if (isRecording) {
-              setIsRecording(false);
               onStopRecord();
             } else {
-              setIsRecording(true);
               onStartRecord();
             }
           }}
@@ -133,6 +174,7 @@ const AddVoice: FunctionComponent<
         visible={snackBar.visible}
         onDismiss={() => setSnackBar({...snackBar, visible: false})}
         title={snackBar.title}
+        subTitle={snackBar.subtitle}
       />
     </>
   );

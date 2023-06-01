@@ -33,6 +33,10 @@ export const Permissions = {
     ios: PERMISSIONS.IOS.PHOTO_LIBRARY,
     android: PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
   }) as string,
+  READ_STORAGE: Platform.select({
+    ios: PERMISSIONS.IOS.PHOTO_LIBRARY,
+    android: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+  }) as string,
   MICROPHONE: Platform.select({
     ios: PERMISSIONS.IOS.MICROPHONE,
     android: PERMISSIONS.ANDROID.RECORD_AUDIO,
