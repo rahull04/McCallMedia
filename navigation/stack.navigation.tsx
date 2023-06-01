@@ -23,9 +23,21 @@ export const getAuthenticatedScreenStack = (AppStack: any) => (
   <>
     {/* Authenticated stack */}
     <AppStack.Screen name="Home" component={Home} />
-    <AppStack.Screen name="AddVoice" component={AddVoice} />
-    <AppStack.Screen name="AddPhoto" component={AddPhoto} />
-    <AppStack.Screen name="AddDetails" component={AddDetails} />
+    <AppStack.Screen
+      name="AddVoice"
+      screenOptions={{presentation: 'fullScreenModal'}}
+      component={AddVoice}
+    />
+    <AppStack.Screen
+      name="AddPhoto"
+      screenOptions={{presentation: 'fullScreenModal'}}
+      component={AddPhoto}
+    />
+    <AppStack.Screen
+      name="AddDetails"
+      screenOptions={{presentation: 'fullScreenModal'}}
+      component={AddDetails}
+    />
     <AppStack.Screen name="CompanyEvent" component={CompanyEvent} />
     <AppStack.Screen name="QRScanner" component={QRScanner} />
   </>
