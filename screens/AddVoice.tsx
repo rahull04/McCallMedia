@@ -132,7 +132,9 @@ const AddVoice: FunctionComponent<
 
   return (
     <>
-      <Screen type="fixed" header={<Header title="Person name" />}>
+      <Screen
+        type="fixed"
+        header={<Header title="Person name" showCloseIcon={true} />}>
         <View style={styles.circle}>
           <Image
             source={

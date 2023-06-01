@@ -69,7 +69,7 @@ const AddDetails: FunctionComponent<
     <Screen
       type="fixed"
       style={styles.screen}
-      header={<Header title="Person name" />}>
+      header={<Header title="Person name" showCloseIcon={true} />}>
       <TextInput
         value={details.name.value}
         label="Name"

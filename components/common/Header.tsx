@@ -12,6 +12,7 @@ interface ButtonItem {
 interface HeaderProps {
   readonly title?: string;
   readonly showBackIcon?: boolean;
+  readonly showCloseIcon?: boolean;
   readonly rightButtons?: ButtonItem[];
   readonly showAppName?: boolean;
 }
@@ -20,6 +21,7 @@ export const Header = ({
   title,
   showAppName = false,
   showBackIcon,
+  showCloseIcon,
 }: HeaderProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
@@ -44,6 +46,13 @@ export const Header = ({
       <View style={styles.titleContainer}>
         <Text text={titleValue} style={styles.title} />
       </View>
+      {showCloseIcon ? (
+        <TouchableOpacity
+          style={styles.closeContainer}
+          onPress={() => navigation.goBack()}>
+          <Image source={theme.icon.close_white} style={styles.close} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
@@ -94,6 +103,16 @@ const makeStyles = (theme: GlobalThemeType) =>
     backArrow: {
       width: 35,
       height: 35,
+      marginLeft: 16,
+    },
+    closeContainer: {
+      zIndex: 4,
+      position: 'absolute',
+      right: 20,
+    },
+    close: {
+      width: 22,
+      height: 22,
       marginLeft: 16,
     },
   });

@@ -23,6 +23,7 @@ import microphone_off from '../icons/microphone_off.png';
 import microphone_on from '../icons/microphone_on.png';
 import add_image from '../icons/add_image.png';
 import back_arrow from '../icons/back_arrow.png';
+import close_white from '../icons/close_white.png';
 
 export const globalIcons = {
   calculator_active: calculatorActive,
@@ -49,4 +50,5 @@ export const globalIcons = {
   microphone_on: microphone_on,
   add_image: add_image,
   back_arrow: back_arrow,
+  close_white: close_white,
 };
