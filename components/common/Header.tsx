@@ -35,7 +35,9 @@ export const Header = ({
   return (
     <View style={styles.header}>
       {showBackIcon ? (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.backArrowContainer}
+          onPress={() => navigation.goBack()}>
           <Image source={theme.icon.back_arrow} style={styles.backArrow} />
         </TouchableOpacity>
       ) : null}
@@ -85,6 +87,9 @@ const makeStyles = (theme: GlobalThemeType) =>
       fontSize: 20,
       fontWeight: '500',
       color: theme.color.white,
+    },
+    backArrowContainer: {
+      zIndex: 4,
     },
     backArrow: {
       width: 35,
