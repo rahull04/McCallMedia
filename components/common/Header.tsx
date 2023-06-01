@@ -61,7 +61,12 @@ const makeStyles = (theme: GlobalThemeType) =>
     },
     titleContainer: {
       position: 'absolute',
-      left: '32%',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     title: {
       fontSize: theme.spacing.sizes[5],
