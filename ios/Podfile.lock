@@ -75,13 +75,13 @@ PODS:
   - glog (0.3.5)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-Camera (3.8.0):
+  - Permission-Camera (2.2.2):
     - RNPermissions
-  - Permission-LocationWhenInUse (3.8.0):
+  - Permission-LocationWhenInUse (2.2.2):
     - RNPermissions
-  - Permission-Microphone (3.8.0):
+  - Permission-Microphone (2.2.2):
     - RNPermissions
-  - Permission-PhotoLibrary (3.8.0):
+  - Permission-PhotoLibrary (2.2.2):
     - RNPermissions
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -416,7 +416,7 @@ PODS:
     - React-Core
   - RNGestureHandler (2.10.1):
     - React-Core
-  - RNPermissions (3.8.0):
+  - RNPermissions (2.2.2):
     - React-Core
   - RNScreens (3.20.0):
     - React-Core
@@ -456,10 +456,10 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (= 0.125.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - OpenSSL-Universal (= 1.1.1100)
-  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
-  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
-  - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone`)
-  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
+  - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone.podspec`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary.podspec`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -534,13 +534,13 @@ EXTERNAL SOURCES:
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   Permission-Camera:
-    :path: "../node_modules/react-native-permissions/ios/Camera"
+    :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
   Permission-LocationWhenInUse:
-    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
   Permission-Microphone:
-    :path: "../node_modules/react-native-permissions/ios/Microphone"
+    :path: "../node_modules/react-native-permissions/ios/Microphone.podspec"
   Permission-PhotoLibrary:
-    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary"
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary.podspec"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -643,10 +643,10 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-Camera: e6d142d7d8b714afe0a83e5e6ae17eb949f1e3e9
-  Permission-LocationWhenInUse: 1c80e4797ae587642a83125e80b86686cefeba53
-  Permission-Microphone: 644b1de8bcc2afcaf934e09a22bee507a95796a7
-  Permission-PhotoLibrary: 31787bbe77d0d3ae6a5267b8435e4a2e9ef78f1d
+  Permission-Camera: 5d2aaf95592660b6dcb5e8d1d90ed5d0156cad02
+  Permission-LocationWhenInUse: 871e81c06c1fc578353fce962d5d8e6efa697f1a
+  Permission-Microphone: a0e56790d61392c31627df33328fef079ad46fa8
+  Permission-PhotoLibrary: 8227a6ed9f6a971537afe63742d54f5f23a38fe2
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: bd6045fbd511da5efe6db89eecb21e4e36bd7cbf
   RCTTypeSafety: c06d9f906faa69dd1c88223204c3a24767725fd8
@@ -684,13 +684,13 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNGestureHandler: 42ec7c28dd02d540ed6c9159c57a98ff016492dc
-  RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
+  RNPermissions: 5df468064df661a4c8c017e2791ce90d7695eea5
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: cd7d7f509dbfac14ee7f31a6c750acb957cd5022
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ec877dfe52a4a9d8cdd62450c7d879cfc7975462
+PODFILE CHECKSUM: 5eb8d2079eb8dc9e1cbde351386519ea81d2b4ed
 
 COCOAPODS: 1.12.1
