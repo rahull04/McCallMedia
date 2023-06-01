@@ -16,7 +16,6 @@
 		1D5438FC414444E29CEB61FD /* CormorantGaramond-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 291E215A78FF463AAD77F101 /* CormorantGaramond-Medium.ttf */; };
 		20AE6F95215440F3A26827A5 /* CormorantGaramond-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAFEB707F1A14873A8256BD6 /* CormorantGaramond-Light.ttf */; };
 		62D32DC0D94F41E681989254 /* CormorantGaramond-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAE10E11AABB446491FB5B89 /* CormorantGaramond-Italic.ttf */; };
-		641EDF776D95F26D70B83993 /* libPods-McCallMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A8896D2941A4E8B53E84EC /* libPods-McCallMedia.a */; };
 		6609DEF3C88446C7B988FA37 /* CormorantGaramond-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E84EB3F56BC448A4B2DF6476 /* CormorantGaramond-SemiBoldItalic.ttf */; };
 		6AD217279AD644ABA7247EB3 /* CormorantGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E681489D1D9E47D4A09E2DE1 /* CormorantGaramond-SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -83,7 +82,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				641EDF776D95F26D70B83993 /* libPods-McCallMedia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +251,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -496,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B780AB27D1F16CAED4DBEF77 /* Pods-McCallMedia-McCallMediaTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -523,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0F7A5AFDBC624C15433AAC81 /* Pods-McCallMedia-McCallMediaTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = McCallMediaTests/Info.plist;

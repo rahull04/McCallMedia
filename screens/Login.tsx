@@ -121,7 +121,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       width: 200,
       height: 80,
       alignSelf: 'center',
-      marginBottom: theme.spacing.sizes[4],
+      marginVertical: theme.spacing.sizes[4],
     },
     checkBox: {
       padding: 10,

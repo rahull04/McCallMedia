@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, EventListItem, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useTheme} from '../lib';
+import {GlobalThemeType, useStore, useTheme} from '../lib';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 
@@ -35,7 +35,9 @@ const Home: FunctionComponent<
           renderItem={({item: group}) => (
             <EventListItem
               eventName="Event 1"
-              onPress={() => navigation.navigate('CompanyEvent')}
+              onPress={() => {
+                navigation.dispatch(CommonActions.navigate('CompanyEvent'));
+              }}
             />
           )}
           data={data}

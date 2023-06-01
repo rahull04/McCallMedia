@@ -1,6 +1,6 @@
 import React, {FC, FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {EventListItem, Header, Screen, Text} from '../components';
+import {UserListItem, Header, Screen, Text} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, useTheme} from '../lib';
 import {
@@ -101,7 +101,14 @@ const FirstRoute: FC = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         refreshing={false}
-        renderItem={({item: group}) => <EventListItem eventName="Event 1" />}
+        renderItem={({item: group}) => (
+          <UserListItem
+            eventName="Event 1"
+            onEdit={() => {
+              // navigation.navigate('AddDetails');
+            }}
+          />
+        )}
         data={data}
         onRefresh={null}
       />
@@ -129,7 +136,14 @@ const SecondRoute: FC = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         refreshing={false}
-        renderItem={({item: group}) => <EventListItem eventName="Event 1" />}
+        renderItem={({item: group}) => (
+          <UserListItem
+            eventName="Event 1"
+            onEdit={() => {
+              // navigation.navigate('AddDetails');
+            }}
+          />
+        )}
         data={data}
         onRefresh={null}
       />
