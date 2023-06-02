@@ -7,9 +7,10 @@ import {
   Logger,
   Permissions,
   PermissionsManager,
+  getMMSS,
   useTheme,
 } from '../lib';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {addVoice} from '../api';
 import {RESULTS} from 'react-native-permissions';
@@ -45,13 +46,19 @@ const AddVoice: FunctionComponent<
   const [recordingUri, setRecordingUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isRecordingComplete, setIsRecordingComplete] = useState(false);
+  const [playBackData, setPlayBackData] = useState({
+    currentPositionSec: 0,
+    currentDurationSec: 0,
+    playTime: '00:00',
+    duration: '00:00',
+  });
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   // Check if all the required permissions are granted by the user
   const checkPermissions = async () => {
     let addedPermissions = 0;
     for (const permission of REQUIRED_PERMISSIONS) {
       const value = await PermissionsManager.request(permission as string);
-      console.log('value', value);
       if (value === RESULTS.GRANTED) {
         addedPermissions++;
       }
@@ -83,11 +90,7 @@ const AddVoice: FunctionComponent<
     // Add a listener for audio recording changes
     audioRecorderPlayer.addRecordBackListener(e => {
       // Convert mm:ss:ss to mm:ss
-      const mmss = audioRecorderPlayer
-        .mmssss(Math.floor(e.currentPosition))
-        .split(':')
-        .slice(0, 2)
-        .join(':');
+      const mmss = getMMSS(e.currentPosition);
       setRecordingData({
         recordSecs: e.currentPosition,
         recordTime: mmss,
@@ -103,15 +106,52 @@ const AddVoice: FunctionComponent<
     audioRecorderPlayer.removeRecordBackListener();
 
     // Reset recording data
-    setRecordingData({
-      recordSecs: 0,
-      recordTime: '00:00',
-    });
+    // setRecordingData({
+    //   recordSecs: 0,
+    //   recordTime: '00:00',
+    // });
     setIsRecordingComplete(true);
     setSnackBar({
       visible: true,
       title: 'Recording successful',
       subtitle: 'Please click on the submit button to save the recording',
+    });
+  };
+
+  const onStartPlay = async () => {
+    logger.log('onStartPlay called');
+    if (!recordingUri) {
+      return;
+    }
+    setIsAudioPlaying(true);
+    const recordingMessage = await audioRecorderPlayer.startPlayer(
+      recordingUri,
+    );
+    logger.log('Recording message', recordingMessage);
+    audioRecorderPlayer.addPlayBackListener(e => {
+      if (getMMSS(e.currentPosition) === recordingData.recordTime) {
+        setIsAudioPlaying(false);
+      }
+      setPlayBackData({
+        currentPositionSec: e.currentPosition,
+        currentDurationSec: e.duration,
+        playTime: getMMSS(e.currentPosition),
+        duration: getMMSS(e.duration),
+      });
+      return;
+    });
+  };
+
+  const onStopPlay = async () => {
+    logger.log('onStopPlay called');
+    setIsAudioPlaying(false);
+    audioRecorderPlayer.stopPlayer();
+    audioRecorderPlayer.removePlayBackListener();
+    setPlayBackData({
+      currentPositionSec: 0,
+      currentDurationSec: 0,
+      playTime: '00:00',
+      duration: '00:00',
     });
   };
 
@@ -130,36 +170,75 @@ const AddVoice: FunctionComponent<
     }
   };
 
+  const recorderView = () => (
+    <View style={styles.circle}>
+      <Image
+        source={
+          (isRecording && theme.icon.microphone_on) || theme.icon.microphone_off
+        }
+        style={styles.microphone}
+      />
+      <Text text={recordingData?.recordTime ?? ''} style={styles.duration} />
+    </View>
+  );
+
+  const audioPlayerView = () => (
+    <View style={styles.circle}>
+      <View>
+        <Text
+          text={
+            `${playBackData?.playTime} / ${recordingData?.recordTime}` ?? ''
+          }
+          style={styles.playStopDuration}
+        />
+      </View>
+      <View style={styles.playStopContainer}>
+        {isAudioPlaying ? (
+          <TouchableOpacity onPress={() => onStopPlay()}>
+            <Image source={theme.icon.stop_black} style={styles.playStop} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => onStartPlay()}>
+            <Image source={theme.icon.play_black} style={styles.playStop} />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+
   return (
     <>
       <Screen
         type="fixed"
         header={<Header title="Person name" showCloseIcon={true} />}>
-        <View style={styles.circle}>
-          <Image
-            source={
-              (!isRecording && recordingUri && theme.icon.green_check) ||
-              (isRecording && theme.icon.microphone_on) ||
-              theme.icon.microphone_off
-            }
-            style={styles.microphone}
+        {isRecording || !recordingUri ? recorderView() : audioPlayerView()}
+        {isRecording || !recordingUri ? (
+          <Button
+            title={isRecording ? 'Stop' : 'Start'}
+            style={isRecording && styles.redButton}
+            onPress={() => {
+              if (isRecording) {
+                onStopRecord();
+              } else {
+                onStartRecord();
+              }
+            }}
           />
-          <Text
-            text={recordingData?.recordTime ?? ''}
-            style={styles.duration}
+        ) : (
+          <Button
+            title={isRecording ? 'Stop' : 'Record again'}
+            style={isRecording && styles.redButton}
+            onPress={() => {
+              if (isRecording) {
+                onStopRecord();
+              } else {
+                logger.log('Record again called');
+                onStopPlay();
+                onStartRecord();
+              }
+            }}
           />
-        </View>
-        <Button
-          title={isRecording ? 'Stop' : 'Start'}
-          style={isRecording && styles.redButton}
-          onPress={() => {
-            if (isRecording) {
-              onStopRecord();
-            } else {
-              onStartRecord();
-            }
-          }}
-        />
+        )}
         <Button
           title="Submit"
           mode="secondary"
@@ -206,5 +285,20 @@ const makeStyles = (theme: GlobalThemeType) =>
     },
     redButton: {
       backgroundColor: theme.color.red,
+    },
+    playStopDuration: {
+      position: 'absolute',
+      bottom: 10,
+      alignSelf: 'center',
+    },
+    playStop: {
+      width: 50,
+      height: 50,
+      marginHorizontal: 10,
+    },
+    playStopContainer: {
+      flexDirection: 'row',
+      position: 'absolute',
+      bottom: 30,
     },
   });

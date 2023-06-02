@@ -1,3 +1,5 @@
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+
 const MONTHS = [
   'Jan',
   'Feb',
@@ -44,4 +46,13 @@ export const humanize = (d: Date) => {
     ' ' +
     ('000' + d.getFullYear()).slice(-4)
   );
+};
+
+export const getMMSS = (currentPosition: number) => {
+  const audioRecorderPlayer = new AudioRecorderPlayer();
+  return audioRecorderPlayer
+    .mmssss(Math.floor(currentPosition))
+    .split(':')
+    .slice(0, 2)
+    .join(':');
 };
