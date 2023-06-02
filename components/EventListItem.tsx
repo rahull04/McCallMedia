@@ -19,7 +19,10 @@ export const EventListItem = ({eventName, onPress}: EventListItemProps) => {
           onPress && onPress();
         }}>
         <Image source={theme.icon.speaker} style={styles.speaker} />
-        <Text style={styles.eventName} text={eventName} />
+        <View style={styles.eventContainer}>
+          <Text style={styles.eventName} text={eventName} />
+          <Text style={styles.companyDetail} text={eventName} />
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -43,10 +46,19 @@ const makeStyles = (theme: GlobalThemeType) =>
     eventName: {
       color: theme.color.black,
       fontSize: 18,
-      marginTop: 12,
     },
     childContainer: {
       flex: 1,
       flexDirection: 'row',
+    },
+    eventContainer: {
+      flex: 1,
+      flexDirection: 'column',
+      alignContent: 'center',
+    },
+    companyDetail: {
+      color: theme.color.black,
+      fontSize: 12,
+      marginTop: 6,
     },
   });

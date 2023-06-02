@@ -7,7 +7,10 @@ import {Alert, StyleSheet, View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 
-export interface LoginProps {}
+export interface QRScannerProps {
+  eventId: number;
+  eventName: string;
+}
 
 const QRScanner: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'QRScanner'>

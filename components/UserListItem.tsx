@@ -1,4 +1,4 @@
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Text} from './common';
 import {GlobalThemeType, useTheme} from '../lib';
@@ -13,8 +13,8 @@ export const UserListItem = ({eventName, onEdit}: UserListItemProps) => {
   const styles = makeStyles(theme);
   return (
     <View style={styles.container}>
-      <Image source={theme.icon.speaker} style={styles.speaker} />
       <Text style={styles.eventName} text={eventName} />
+      <Text style={styles.companyName} text={eventName} />
       <TouchableOpacity
         style={styles.childContainer}
         onPress={() => {
@@ -46,6 +46,13 @@ const makeStyles = (theme: GlobalThemeType) =>
       fontSize: 18,
       marginTop: 12,
       flex: 1,
+    },
+    companyName: {
+      color: theme.color.black,
+      fontSize: 18,
+      marginTop: 12,
+      flex: 1,
+      marginHorizontal: theme.spacing.sizes[2],
     },
     edit: {
       color: theme.color.black,

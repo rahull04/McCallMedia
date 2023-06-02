@@ -1,8 +1,8 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button, EventListItem, Header, Screen} from '../components';
+import {EventListItem, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useStore, useTheme} from '../lib';
+import {GlobalThemeType, useTheme} from '../lib';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 
@@ -32,23 +32,22 @@ const Home: FunctionComponent<
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           refreshing={false}
-          renderItem={({item: group}) => (
+          renderItem={(item: any) => (
             <EventListItem
               eventName="Event 1"
               onPress={() => {
-                navigation.dispatch(CommonActions.navigate('CompanyEvent'));
+                navigation.dispatch(
+                  CommonActions.navigate('CompanyEvent', {
+                    eventId: item.index,
+                    eventName: item,
+                  }),
+                );
               }}
             />
           )}
           data={data}
           onRefresh={null}
           contentContainerStyle={styles.contentContainerStyle}
-        />
-        <Button
-          title="Scan QR"
-          onPress={() => {
-            navigation.dispatch(CommonActions.navigate('QRScanner'));
-          }}
         />
       </View>
     </Screen>

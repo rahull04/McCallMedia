@@ -4,7 +4,7 @@ import Home from '../screens/Home';
 import AddVoice, {AddVoiceProps} from '../screens/AddVoice';
 import AddPhoto, {AddPhotoProps} from '../screens/AddPhoto';
 import AddDetails, {AddDetailsProps} from '../screens/AddDetails';
-import CompanyEvent from '../screens/CompanyEvent';
+import CompanyEvent, {CompanyEventProps} from '../screens/CompanyEvent';
 import QRScanner from '../screens/QRScanner';
 
 export type RootStackParamList = {
@@ -15,7 +15,7 @@ export type RootStackParamList = {
   AddVoice: AddVoiceProps;
   AddPhoto: AddPhotoProps;
   AddDetails: AddDetailsProps;
-  CompanyEvent: undefined;
+  CompanyEvent: CompanyEventProps;
   QRScanner: undefined;
 };
 

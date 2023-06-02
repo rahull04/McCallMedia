@@ -1,21 +1,26 @@
 import React, {FC, FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {UserListItem, Header, Screen, Text} from '../components';
+import {UserListItem, Header, Screen, Text, Button} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, useTheme} from '../lib';
 import {
   FlatList,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
 import {TabView, SceneMap, SceneRendererProps} from 'react-native-tab-view';
+import {CommonActions, useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Route {
   key: string;
   title: string;
+}
+export interface CompanyEventProps {
+  eventId: number;
+  eventName: string;
 }
 
 interface TabBarProps {
@@ -38,8 +43,8 @@ const CompanyEvent: FunctionComponent<
   const layout = useWindowDimensions();
 
   const [routes] = React.useState([
-    {key: 'first', title: 'Checked'},
-    {key: 'second', title: 'Unchecked'},
+    {key: 'first', title: 'Checked In'},
+    {key: 'second', title: 'Remaining'},
   ]);
 
   const renderTabBar = (props: SceneRendererProps & TabBarProps) => {
@@ -86,9 +91,11 @@ const FirstRoute: FC = () => {
   const styles = makeCheckedInUsersStyles(theme);
   const [data, setData] = useState<string[]>([]);
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   useEffect(() => {
     var temp = [];
-    for (var i = 1; i < 10; i++) {
+    for (var i = 1; i < 5; i++) {
       temp.push('Event' + i);
     }
     setData(temp);
@@ -105,12 +112,18 @@ const FirstRoute: FC = () => {
           <UserListItem
             eventName="Event 1"
             onEdit={() => {
-              // navigation.navigate('AddDetails');
+              navigation.navigate('AddPhoto', {});
             }}
           />
         )}
         data={data}
         onRefresh={null}
+      />
+      <Button
+        title="Scan QR"
+        onPress={() => {
+          navigation.dispatch(CommonActions.navigate('QRScanner'));
+        }}
       />
     </View>
   );
@@ -120,6 +133,7 @@ const SecondRoute: FC = () => {
   const theme = useTheme();
   const styles = makeCheckedInUsersStyles(theme);
   const [data, setData] = useState<string[]>([]);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     var temp = [];
@@ -140,7 +154,7 @@ const SecondRoute: FC = () => {
           <UserListItem
             eventName="Event 1"
             onEdit={() => {
-              // navigation.navigate('AddDetails');
+              navigation.navigate('AddVoice', {});
             }}
           />
         )}

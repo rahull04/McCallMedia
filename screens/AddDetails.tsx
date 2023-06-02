@@ -8,7 +8,12 @@ import {addDetails} from '../api';
 
 const logger = new Logger({name: 'AddDetails'});
 
-export interface AddDetailsProps {}
+export interface AddDetailsProps {
+  eventId: number;
+  eventName: string;
+  useName: string;
+  companyName: string;
+}
 
 const AddDetails: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'AddDetails'>
