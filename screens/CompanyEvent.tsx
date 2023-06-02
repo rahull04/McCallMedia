@@ -66,7 +66,7 @@ const RemainingEvents: FC = () => {
   useEffect(() => {
     var temp = [];
     for (var i = 1; i < 10; i++) {
-      temp.push('Event' + i);
+      temp.push('User' + i);
     }
     setRemainingEvents(temp);
   }, []);
@@ -78,14 +78,7 @@ const RemainingEvents: FC = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         refreshing={false}
-        renderItem={({item: eventName}) => (
-          <UserListItem
-            eventName={eventName}
-            onEdit={() => {
-              navigation.navigate('AddVoice', {});
-            }}
-          />
-        )}
+        renderItem={({item: userName}) => <UserListItem userName={userName} />}
         data={remainingEvents}
         onRefresh={null}
       />

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* McCallMediaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* McCallMediaTests.m */; };
+		01F26E66D260F586C2E37F92 /* libPods-McCallMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54A8896D2941A4E8B53E84EC /* libPods-McCallMedia.a */; };
 		0792A4330BAD4D9CB7B6AE22 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C2C54E0AC9C144BA9E307C12 /* OFL.txt */; };
 		0C9C55DB62E741648DC3455F /* CormorantGaramond-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB2B91D5455545CD8B800C8B /* CormorantGaramond-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01F26E66D260F586C2E37F92 /* libPods-McCallMedia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
