@@ -24,6 +24,8 @@ import microphone_on from '../icons/microphone_on.png';
 import add_image from '../icons/add_image.png';
 import back_arrow from '../icons/back_arrow.png';
 import close_white from '../icons/close_white.png';
+import camera_black from '../icons/camera_black.png';
+import edit_black from '../icons/edit_black.png';
 
 export const globalIcons = {
   calculator_active: calculatorActive,
@@ -51,4 +53,6 @@ export const globalIcons = {
   add_image: add_image,
   back_arrow: back_arrow,
   close_white: close_white,
+  camera_black: camera_black,
+  edit_black: edit_black,
 };

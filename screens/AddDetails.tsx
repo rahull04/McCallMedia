@@ -11,7 +11,7 @@ const logger = new Logger({name: 'AddDetails'});
 export interface AddDetailsProps {
   eventId: number;
   eventName: string;
-  useName: string;
+  userName: string;
   companyName: string;
 }
 
