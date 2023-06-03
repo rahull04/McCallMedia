@@ -1,4 +1,10 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, Snackbar, Text} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
@@ -14,6 +20,7 @@ import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {addVoice} from '../api';
 import {RESULTS} from 'react-native-permissions';
+import RNFS from 'react-native-fs';
 
 const logger = new Logger({name: 'AddVoice'});
 
@@ -26,15 +33,21 @@ const REQUIRED_PERMISSIONS = [
   Permissions.READ_STORAGE,
 ];
 
-export interface AddVoiceProps {}
+export interface AddVoiceProps {
+  voice?: {
+    base64: string;
+    recordTime: string;
+  };
+}
 
 const AddVoice: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'AddVoice'>
-> = () => {
+> = ({route}) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  let voiceNote = useRef(route.params.voice);
+  // Contains the recording time
   const [recordingData, setRecordingData] = useState({
-    recordSecs: 0,
     recordTime: '00:00',
   });
   const [isRecording, setIsRecording] = useState(false);
@@ -43,7 +56,7 @@ const AddVoice: FunctionComponent<
     title: '',
     subtitle: '',
   });
-  const [recordingUri, setRecordingUri] = useState<string | null>(null);
+  const [recordingUri, setRecordingUri] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
   const [isRecordingComplete, setIsRecordingComplete] = useState(false);
   const [playBackData, setPlayBackData] = useState({
@@ -55,7 +68,7 @@ const AddVoice: FunctionComponent<
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   // Check if all the required permissions are granted by the user
-  const checkPermissions = async () => {
+  const checkPermissions = useCallback(async () => {
     let addedPermissions = 0;
     for (const permission of REQUIRED_PERMISSIONS) {
       const value = await PermissionsManager.request(permission as string);
@@ -67,9 +80,9 @@ const AddVoice: FunctionComponent<
       return false;
     }
     return true;
-  };
+  }, []);
 
-  const onStartRecord = async () => {
+  const onStartRecord = useCallback(async () => {
     const areAllPermissionsGranted = await checkPermissions();
     logger.log('areAllPermissionsGranted', areAllPermissionsGranted);
     if (!areAllPermissionsGranted) {
@@ -82,7 +95,7 @@ const AddVoice: FunctionComponent<
       return;
     }
     setIsRecording(true);
-    setRecordingUri(null);
+    setRecordingUri(undefined);
     const uri = await audioRecorderPlayer.startRecorder();
     logger.log(`Recording uri path, ${uri}`);
     setRecordingUri(uri); // Save audio uri to state
@@ -92,34 +105,28 @@ const AddVoice: FunctionComponent<
       // Convert mm:ss:ss to mm:ss
       const mmss = getMMSS(e.currentPosition);
       setRecordingData({
-        recordSecs: e.currentPosition,
         recordTime: mmss,
       });
       return;
     });
-  };
+  }, [checkPermissions]);
 
-  const onStopRecord = async () => {
+  const onStopRecord = useCallback(async () => {
     setIsRecording(false);
     // Stop recording
     await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
 
-    // Reset recording data
-    // setRecordingData({
-    //   recordSecs: 0,
-    //   recordTime: '00:00',
-    // });
     setIsRecordingComplete(true);
     setSnackBar({
       visible: true,
       title: 'Recording successful',
       subtitle: 'Please click on the submit button to save the recording',
     });
-  };
+  }, []);
 
-  const onStartPlay = async () => {
-    logger.log('onStartPlay called');
+  const onStartPlay = useCallback(async () => {
+    logger.log('onStartPlay called for recordingUri', recordingUri);
     if (!recordingUri) {
       return;
     }
@@ -127,7 +134,7 @@ const AddVoice: FunctionComponent<
     const recordingMessage = await audioRecorderPlayer.startPlayer(
       recordingUri,
     );
-    logger.log('Recording message', recordingMessage);
+    logger.log('Recording started for recordingUri', recordingMessage);
     audioRecorderPlayer.addPlayBackListener(e => {
       if (getMMSS(e.currentPosition) === recordingData.recordTime) {
         setIsAudioPlaying(false);
@@ -140,7 +147,7 @@ const AddVoice: FunctionComponent<
       });
       return;
     });
-  };
+  }, [recordingData.recordTime, recordingUri]);
 
   const onStopPlay = async () => {
     logger.log('onStopPlay called');
@@ -161,7 +168,10 @@ const AddVoice: FunctionComponent<
         return;
       }
       setLoading(true);
-      await addVoice(recordingUri);
+      // Convert file to base64 format
+      const base64Recording = await RNFS.readFile(recordingUri, 'base64');
+      logger.log('base64Recording to be submitted', base64Recording);
+      await addVoice(base64Recording);
     } catch (err) {
       logger.error('Error while adding new voice', err);
       Alert.alert('Error while adding new voice');
@@ -169,6 +179,37 @@ const AddVoice: FunctionComponent<
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Check if any voice data exists and convert write base64 voice content to file
+    const writeRecodingBase64ToFile = async (
+      base64Str: string,
+      recordTime: string,
+    ) => {
+      const filePath = `file://${RNFS.DocumentDirectoryPath}/testSound.m4a`;
+      RNFS.writeFile(filePath, base64Str, 'base64').then(() => {
+        setRecordingUri(filePath);
+        setRecordingData({
+          recordTime: recordTime,
+        });
+      });
+    };
+    voiceNote.current &&
+      writeRecodingBase64ToFile(
+        voiceNote.current?.base64,
+        voiceNote.current?.recordTime,
+      );
+    voiceNote.current = undefined;
+  }, [voiceNote]);
+
+  useEffect(() => {
+    return () => {
+      onStopRecord();
+      onStopPlay();
+    };
+    // This needs to be called only on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const recorderView = () => (
     <View style={styles.circle}>
@@ -198,7 +239,10 @@ const AddVoice: FunctionComponent<
             <Image source={theme.icon.stop_black} style={styles.playStop} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={() => onStartPlay()}>
+          <TouchableOpacity
+            onPress={() => {
+              onStartPlay();
+            }}>
             <Image source={theme.icon.play_black} style={styles.playStop} />
           </TouchableOpacity>
         )}
