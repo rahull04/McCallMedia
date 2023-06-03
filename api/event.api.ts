@@ -14,6 +14,11 @@ interface AddVoiceBody {
   base64: string;
 }
 
+interface AddPhotoBody {
+  base64: string;
+  fileName: string;
+}
+
 export const addVoice = async (body: AddVoiceBody) => {
   try {
     const resp = await POST('event/add-voice', body);
@@ -24,20 +29,14 @@ export const addVoice = async (body: AddVoiceBody) => {
   }
 };
 
-export const addPhoto = async (imageUri: string) => {
-  const formData = new FormData();
-  formData.append('file', {
-    uri: imageUri,
-    name: 'test.mp3',
-    type: 'audio/mp3',
-  });
+export const addPhoto = async (body: AddPhotoBody) => {
   try {
-    const resp = await POST('event/add-photo', formData, {
+    const resp = await POST('event/add-photo', body, {
       'Content-Type': 'multipart/form-data',
     });
     logger.log('Photo added successfully', resp);
   } catch (err) {
-    logger.error('Error while adding Photo for recording', imageUri, err);
+    logger.error('Error while adding Photo for recording', body, err);
     throw err;
   }
 };
