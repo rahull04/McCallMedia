@@ -61,6 +61,8 @@ target 'McCallMedia' do
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'McCallMediaTests' do
     inherit! :complete
     # Pods for testing
