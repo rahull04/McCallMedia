@@ -164,7 +164,7 @@ const AddPhoto: FunctionComponent<
           )}
         </View>
         <Button
-          title={capturedImage ? 'Capture again' : 'Capture'}
+          title={capturedImage.fileName ? 'Capture again' : 'Capture'}
           onPress={onCapture}
         />
         <Button
