@@ -33,6 +33,11 @@ const REQUIRED_PERMISSIONS = [
   Permissions.READ_STORAGE,
 ];
 
+interface RecordingData {
+  recordTime: string;
+  recordingUri?: string;
+}
+
 export interface AddVoiceProps {
   voice?: {
     base64: string;
@@ -47,25 +52,23 @@ const AddVoice: FunctionComponent<
   const styles = makeStyles(theme);
   let voiceNote = useRef(route.params.voice);
   // Contains the recording time
-  const [recordingData, setRecordingData] = useState({
+  const [recordingData, setRecordingData] = useState<RecordingData>({
     recordTime: '00:00',
+    recordingUri: undefined,
   });
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(false); // Informs whether recording is ON
+  const [isRecordingComplete, setIsRecordingComplete] = useState(false); // Informs whether recording is complete
+  // Contains audio player total recording time
+  const [playBackData, setPlayBackData] = useState({
+    playTime: '00:00',
+  });
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Informs whether audio player is ON
   const [snackBar, setSnackBar] = useState({
     visible: false,
     title: '',
     subtitle: '',
   });
-  const [recordingUri, setRecordingUri] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
-  const [isRecordingComplete, setIsRecordingComplete] = useState(false);
-  const [playBackData, setPlayBackData] = useState({
-    currentPositionSec: 0,
-    currentDurationSec: 0,
-    playTime: '00:00',
-    duration: '00:00',
-  });
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   // Check if all the required permissions are granted by the user
   const checkPermissions = useCallback(async () => {
@@ -95,21 +98,25 @@ const AddVoice: FunctionComponent<
       return;
     }
     setIsRecording(true);
-    setRecordingUri(undefined);
     const uri = await audioRecorderPlayer.startRecorder();
     logger.log(`Recording uri path, ${uri}`);
-    setRecordingUri(uri); // Save audio uri to state
+    // Save audio uri to state
+    setRecordingData({
+      ...recordingData,
+      recordingUri: uri,
+    });
 
     // Add a listener for audio recording changes
     audioRecorderPlayer.addRecordBackListener(e => {
       // Convert mm:ss:ss to mm:ss
       const mmss = getMMSS(e.currentPosition);
       setRecordingData({
+        recordingUri: uri,
         recordTime: mmss,
       });
       return;
     });
-  }, [checkPermissions]);
+  }, [checkPermissions, recordingData]);
 
   const onStopRecord = useCallback(async () => {
     setIsRecording(false);
@@ -126,13 +133,16 @@ const AddVoice: FunctionComponent<
   }, []);
 
   const onStartPlay = useCallback(async () => {
-    logger.log('onStartPlay called for recordingUri', recordingUri);
-    if (!recordingUri) {
+    logger.log(
+      'onStartPlay called for recordingUri',
+      recordingData.recordingUri,
+    );
+    if (!recordingData.recordingUri) {
       return;
     }
     setIsAudioPlaying(true);
     const recordingMessage = await audioRecorderPlayer.startPlayer(
-      recordingUri,
+      recordingData.recordingUri,
     );
     logger.log('Recording started for recordingUri', recordingMessage);
     audioRecorderPlayer.addPlayBackListener(e => {
@@ -140,36 +150,33 @@ const AddVoice: FunctionComponent<
         setIsAudioPlaying(false);
       }
       setPlayBackData({
-        currentPositionSec: e.currentPosition,
-        currentDurationSec: e.duration,
         playTime: getMMSS(e.currentPosition),
-        duration: getMMSS(e.duration),
       });
       return;
     });
-  }, [recordingData.recordTime, recordingUri]);
+  }, [recordingData.recordTime, recordingData.recordingUri]);
 
-  const onStopPlay = async () => {
+  const onStopPlay = useCallback(async () => {
     logger.log('onStopPlay called');
     setIsAudioPlaying(false);
     audioRecorderPlayer.stopPlayer();
     audioRecorderPlayer.removePlayBackListener();
     setPlayBackData({
-      currentPositionSec: 0,
-      currentDurationSec: 0,
       playTime: '00:00',
-      duration: '00:00',
     });
-  };
+  }, []);
 
   const onSubmit = async () => {
     try {
-      if (!recordingUri) {
+      if (!recordingData.recordingUri) {
         return;
       }
       setLoading(true);
       // Convert file to base64 format
-      const base64Recording = await RNFS.readFile(recordingUri, 'base64');
+      const base64Recording = await RNFS.readFile(
+        recordingData.recordingUri,
+        'base64',
+      );
       logger.log('base64Recording to be submitted', base64Recording);
       await addVoice(base64Recording);
     } catch (err) {
@@ -188,8 +195,8 @@ const AddVoice: FunctionComponent<
     ) => {
       const filePath = `file://${RNFS.DocumentDirectoryPath}/testSound.m4a`;
       RNFS.writeFile(filePath, base64Str, 'base64').then(() => {
-        setRecordingUri(filePath);
         setRecordingData({
+          recordingUri: filePath,
           recordTime: recordTime,
         });
       });
@@ -255,8 +262,10 @@ const AddVoice: FunctionComponent<
       <Screen
         type="fixed"
         header={<Header title="Person name" showCloseIcon={true} />}>
-        {isRecording || !recordingUri ? recorderView() : audioPlayerView()}
-        {isRecording || !recordingUri ? (
+        {isRecording || !recordingData?.recordingUri
+          ? recorderView()
+          : audioPlayerView()}
+        {isRecording || !recordingData?.recordingUri ? (
           <Button
             title={isRecording ? 'Stop' : 'Start'}
             style={isRecording && styles.redButton}
