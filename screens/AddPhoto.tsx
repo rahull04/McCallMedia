@@ -171,7 +171,7 @@ const AddPhoto: FunctionComponent<
           title="Submit"
           mode="secondary"
           onPress={onSubmit}
-          disabled={!capturedImage}
+          disabled={!capturedImage.fileName}
           loading={loading}
         />
       </Screen>
