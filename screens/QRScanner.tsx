@@ -14,7 +14,7 @@ export interface QRScannerProps {
 
 const QRScanner: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'QRScanner'>
-> = ({navigation}) => {
+> = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
 
@@ -25,7 +25,9 @@ const QRScanner: FunctionComponent<
   // };
 
   return (
-    <Screen type="fixed" header={<Header showAppName={true} showBackIcon={true} />}>
+    <Screen
+      type="fixed"
+      header={<Header showAppName={true} showBackIcon={true} />}>
       <View style={styles.container}>
         <QRCodeScanner
           onRead={() => {

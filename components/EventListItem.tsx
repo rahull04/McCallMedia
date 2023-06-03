@@ -16,34 +16,34 @@ export const EventListItem = ({eventName}: EventListItemProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.childContainer}
-        onPress={() => {
-          navigation.navigate('CompanyEvent', {
-            eventId: 1,
-            eventName: eventName,
-          });
-        }}>
-        <Image source={theme.icon.speaker} style={styles.speaker} />
-        <View style={styles.eventContainer}>
-          <Text style={styles.eventName} text={eventName} />
-          <Text style={styles.companyDetail} text={eventName} />
-        </View>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('CompanyEvent', {
+          eventId: 1,
+          eventName: eventName,
+        });
+      }}>
+      <Image source={theme.icon.speaker} style={styles.speaker} />
+      <View style={styles.eventContainer}>
+        <Text style={styles.eventName} text={eventName} />
+        <Text style={styles.companyDetail} text={eventName} />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
     container: {
+      flex: 1,
       flexDirection: 'row',
       paddingHorizontal: 14,
-      paddingVertical: 12,
+      paddingVertical: 20,
       borderWidth: 1,
-      borderColor: theme.color.black,
+      borderColor: theme.color.grey,
       margin: 14,
+      borderRadius: 8,
     },
     speaker: {
       width: 50,
@@ -52,20 +52,16 @@ const makeStyles = (theme: GlobalThemeType) =>
     },
     eventName: {
       color: theme.color.black,
-      fontSize: 18,
-    },
-    childContainer: {
-      flex: 1,
-      flexDirection: 'row',
+      fontSize: 16,
     },
     eventContainer: {
       flex: 1,
       flexDirection: 'column',
-      alignContent: 'center',
+      justifyContent: 'center',
     },
     companyDetail: {
-      color: theme.color.black,
-      fontSize: 12,
+      color: theme.color.grey,
+      fontSize: 14,
       marginTop: 6,
     },
   });

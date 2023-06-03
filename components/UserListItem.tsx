@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Text} from './common';
 import {GlobalThemeType, useTheme} from '../lib';
@@ -22,18 +22,19 @@ const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
     container: {
       paddingHorizontal: 14,
-      paddingVertical: 12,
+      paddingVertical: 20,
       borderWidth: 1,
-      borderColor: theme.color.black,
+      borderColor: theme.color.grey,
       margin: 14,
+      borderRadius: 8,
     },
     eventName: {
       color: theme.color.black,
-      fontSize: 18,
-      marginTop: 12,
+      fontSize: 16,
+      marginTop: 2,
     },
     companyName: {
-      color: theme.color.black,
+      color: theme.color.grey,
       fontSize: 14,
       marginTop: 4,
     },

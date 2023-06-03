@@ -29,7 +29,6 @@ if (__DEV__ && enableNetworkDebugging) {
   }
 }
 
-
 const MainApp = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistedStore}>
