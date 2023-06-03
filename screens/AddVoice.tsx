@@ -166,7 +166,7 @@ const AddVoice: FunctionComponent<
     });
   }, []);
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     try {
       if (!recordingData.recordingUri) {
         return;
@@ -178,14 +178,17 @@ const AddVoice: FunctionComponent<
         'base64',
       );
       logger.log('base64Recording to be submitted', base64Recording);
-      await addVoice(base64Recording);
+      await addVoice({
+        recordTime: recordingData.recordTime,
+        base64: base64Recording,
+      });
     } catch (err) {
       logger.error('Error while adding new voice', err);
       Alert.alert('Error while adding new voice');
     } finally {
       setLoading(false);
     }
-  };
+  }, [recordingData.recordTime, recordingData.recordingUri]);
 
   useEffect(() => {
     // Check if any voice data exists and convert write base64 voice content to file

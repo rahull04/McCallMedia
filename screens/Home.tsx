@@ -4,15 +4,13 @@ import {EventListItem, Header, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, useTheme} from '../lib';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
-import {CommonActions} from '@react-navigation/native';
 
 export interface LoginProps {}
 
 const Home: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'Home'>
-> = ({navigation}) => {
+> = () => {
   const [data, setData] = useState<string[]>([]);
-
   const theme = useTheme();
   const styles = makeStyles(theme);
 
@@ -32,19 +30,7 @@ const Home: FunctionComponent<
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           refreshing={false}
-          renderItem={(item: any) => (
-            <EventListItem
-              eventName="Event 1"
-              onPress={() => {
-                navigation.dispatch(
-                  CommonActions.navigate('CompanyEvent', {
-                    eventId: item.index,
-                    eventName: item,
-                  }),
-                );
-              }}
-            />
-          )}
+          renderItem={item => <EventListItem eventName={item.item} />}
           data={data}
           onRefresh={null}
           contentContainerStyle={styles.contentContainerStyle}
