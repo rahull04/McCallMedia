@@ -9,20 +9,17 @@ interface EventDetailsBody {
   location: string;
 }
 
-export const addVoice = async (recording: string) => {
-  const formData = new FormData();
-  formData.append('file', {
-    uri: recording,
-    name: 'test.mp3',
-    type: 'audio/mp3',
-  });
+interface AddVoiceBody {
+  recordTime: string;
+  base64: string;
+}
+
+export const addVoice = async (body: AddVoiceBody) => {
   try {
-    const resp = await POST('event/add-voice', formData, {
-      'Content-Type': 'multipart/form-data',
-    });
+    const resp = await POST('event/add-voice', body);
     logger.log('Voice added successfully', resp);
   } catch (err) {
-    logger.error('Error while adding voice for recording', recording, err);
+    logger.error('Error while adding voice for recording', body, err);
     throw err;
   }
 };

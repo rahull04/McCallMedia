@@ -61,7 +61,6 @@ const RemainingEvents: FC = () => {
   const theme = useTheme();
   const styles = makeStyles(theme);
   const [remainingEvents, setRemainingEvents] = useState<string[]>([]);
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     var temp = [];
@@ -87,7 +86,7 @@ const RemainingEvents: FC = () => {
 };
 
 const CompanyEvent: FunctionComponent<
-  NativeStackScreenProps<RootStackParamList, 'Home'>
+  NativeStackScreenProps<RootStackParamList, 'CompanyEvent'>
 > = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();

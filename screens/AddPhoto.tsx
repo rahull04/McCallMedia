@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useCallback, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Header, Screen, Snackbar} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
@@ -39,7 +39,7 @@ const AddPhoto: FunctionComponent<
   });
 
   // Check if all the required permissions are granted by the user
-  const checkPermissions = async () => {
+  const checkPermissions = useCallback(async () => {
     let addedPermissions = 0;
     for (const permission of REQUIRED_PERMISSIONS) {
       const value = await PermissionsManager.request(permission as string);
@@ -52,9 +52,9 @@ const AddPhoto: FunctionComponent<
       return false;
     }
     return true;
-  };
+  }, []);
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     try {
       if (!capturedImage?.[0]?.uri) {
         return;
@@ -67,9 +67,9 @@ const AddPhoto: FunctionComponent<
     } finally {
       setLoading(false);
     }
-  };
+  }, [capturedImage]);
 
-  const onCapture = async () => {
+  const onCapture = useCallback(async () => {
     logger.log('Capturing image');
     const areAllPermissionsGranted = await checkPermissions();
     logger.log('areAllPermissionsGranted', areAllPermissionsGranted);
@@ -85,7 +85,7 @@ const AddPhoto: FunctionComponent<
     const result = await launchCamera(config);
     logger.log('Captured image result', result);
     setCapturedImage(result.assets);
-  };
+  }, [checkPermissions]);
 
   return (
     <>

@@ -2,21 +2,28 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Text} from './common';
 import {GlobalThemeType, useTheme} from '../lib';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/stack.navigation';
 
 interface EventListItemProps {
   eventName: string;
-  onPress?(): void;
 }
 
-export const EventListItem = ({eventName, onPress}: EventListItemProps) => {
+export const EventListItem = ({eventName}: EventListItemProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.childContainer}
         onPress={() => {
-          onPress && onPress();
+          navigation.navigate('CompanyEvent', {
+            eventId: 1,
+            eventName: eventName,
+          });
         }}>
         <Image source={theme.icon.speaker} style={styles.speaker} />
         <View style={styles.eventContainer}>
