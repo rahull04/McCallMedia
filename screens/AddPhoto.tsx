@@ -6,7 +6,13 @@ import React, {
   useState,
 } from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button, Header, Screen, Snackbar} from '../components';
+import {
+  Button,
+  CircularProgressBar,
+  Header,
+  Screen,
+  Snackbar,
+} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {
   GlobalThemeType,
@@ -153,7 +159,7 @@ const AddPhoto: FunctionComponent<
       <Screen
         type="fixed"
         header={<Header title="Person name" showCloseIcon={true} />}>
-        <View style={styles.circle}>
+        {/* <View style={styles.circle}>
           {capturedImage.uri ? (
             <Image
               source={{uri: capturedImage?.uri}}
@@ -162,6 +168,24 @@ const AddPhoto: FunctionComponent<
           ) : (
             <Image source={theme.icon.add_image} style={styles.user} />
           )}
+        </View> */}
+        <View style={styles.circleContainer}>
+          <CircularProgressBar
+            size={240}
+            strokeWidth={18}
+            progressPercent={0}
+            backgroundStrokeColor={capturedImage.uri && theme.color.white}
+            children={
+              capturedImage.uri ? (
+                <Image
+                  source={{uri: capturedImage?.uri}}
+                  style={styles.capturedImage}
+                />
+              ) : (
+                <Image source={theme.icon.add_image} style={styles.user} />
+              )
+            }
+          />
         </View>
         <Button
           title={capturedImage.fileName ? 'Capture again' : 'Capture'}
@@ -201,6 +225,10 @@ const makeStyles = (theme: GlobalThemeType) =>
       marginTop: '40%',
       marginBottom: 30,
       position: 'relative',
+    },
+    circleContainer: {
+      width: '100%',
+      alignItems: 'center',
     },
     user: {
       width: 50,

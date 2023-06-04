@@ -12,6 +12,7 @@ interface EventDetailsBody {
 interface AddVoiceBody {
   recordTime: string;
   base64: string;
+  totalDurationSecs: number;
 }
 
 interface AddPhotoBody {

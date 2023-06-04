@@ -21,6 +21,7 @@ import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {addVoice} from '../api';
 import {RESULTS} from 'react-native-permissions';
 import RNFS from 'react-native-fs';
+import {CircularProgressBar} from '../components';
 
 const logger = new Logger({name: 'AddVoice'});
 
@@ -36,6 +37,7 @@ const REQUIRED_PERMISSIONS = [
 interface RecordingData {
   recordTime: string;
   recordingUri?: string;
+  totalDurationSecs?: number;
 }
 
 export interface AddVoiceProps {
@@ -44,6 +46,8 @@ export interface AddVoiceProps {
     recordTime: string;
   };
 }
+
+const MAX_RECORD_TIME = 3000;
 
 const AddVoice: FunctionComponent<
   NativeStackScreenProps<RootStackParamList, 'AddVoice'>
@@ -55,7 +59,11 @@ const AddVoice: FunctionComponent<
   const [recordingData, setRecordingData] = useState<RecordingData>({
     recordTime: '00:00',
     recordingUri: undefined,
+    totalDurationSecs: undefined,
   });
+  const [recordingDuration, setRecordingDuration] = useState<number | null>(
+    null,
+  );
   const [isRecording, setIsRecording] = useState(false); // Informs whether recording is ON
   const [isRecordingComplete, setIsRecordingComplete] = useState(false); // Informs whether recording is complete
   // Contains audio player total recording time
@@ -113,7 +121,9 @@ const AddVoice: FunctionComponent<
       setRecordingData({
         recordingUri: uri,
         recordTime: mmss,
+        totalDurationSecs: e.currentPosition,
       });
+      setRecordingDuration(e.currentPosition / MAX_RECORD_TIME);
       return;
     });
   }, [checkPermissions, recordingData]);
@@ -123,6 +133,7 @@ const AddVoice: FunctionComponent<
     // Stop recording
     await audioRecorderPlayer.stopRecorder();
     audioRecorderPlayer.removeRecordBackListener();
+    setRecordingDuration(null);
 
     setIsRecordingComplete(true);
     setSnackBar({
@@ -152,9 +163,18 @@ const AddVoice: FunctionComponent<
       setPlayBackData({
         playTime: getMMSS(e.currentPosition),
       });
+      setRecordingDuration(
+        Math.round(
+          (e.currentPosition / (recordingData?.totalDurationSecs ?? 0)) * 100,
+        ),
+      );
       return;
     });
-  }, [recordingData.recordTime, recordingData.recordingUri]);
+  }, [
+    recordingData.recordTime,
+    recordingData.recordingUri,
+    recordingData?.totalDurationSecs,
+  ]);
 
   const onStopPlay = useCallback(async () => {
     logger.log('onStopPlay called');
@@ -164,11 +184,12 @@ const AddVoice: FunctionComponent<
     setPlayBackData({
       playTime: '00:00',
     });
+    setRecordingDuration(null);
   }, []);
 
   const onSubmit = useCallback(async () => {
     try {
-      if (!recordingData.recordingUri) {
+      if (!recordingData.recordingUri || !recordingData.totalDurationSecs) {
         return;
       }
       setLoading(true);
@@ -181,6 +202,7 @@ const AddVoice: FunctionComponent<
       await addVoice({
         recordTime: recordingData.recordTime,
         base64: base64Recording,
+        totalDurationSecs: recordingData.totalDurationSecs,
       });
     } catch (err) {
       logger.error('Error while adding new voice', err);
@@ -188,7 +210,11 @@ const AddVoice: FunctionComponent<
     } finally {
       setLoading(false);
     }
-  }, [recordingData.recordTime, recordingData.recordingUri]);
+  }, [
+    recordingData.recordTime,
+    recordingData.recordingUri,
+    recordingData.totalDurationSecs,
+  ]);
 
   useEffect(() => {
     // Check if any voice data exists and convert write base64 voice content to file
@@ -221,8 +247,8 @@ const AddVoice: FunctionComponent<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const recorderView = () => (
-    <View style={styles.circle}>
+  const _recorderView = () => (
+    <>
       <Image
         source={
           (isRecording && theme.icon.microphone_on) || theme.icon.microphone_off
@@ -230,11 +256,11 @@ const AddVoice: FunctionComponent<
         style={styles.microphone}
       />
       <Text text={recordingData?.recordTime ?? ''} style={styles.duration} />
-    </View>
+    </>
   );
 
-  const audioPlayerView = () => (
-    <View style={styles.circle}>
+  const _audioPlayerView = () => (
+    <>
       <View>
         <Text
           text={
@@ -257,7 +283,7 @@ const AddVoice: FunctionComponent<
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </>
   );
 
   return (
@@ -265,9 +291,18 @@ const AddVoice: FunctionComponent<
       <Screen
         type="fixed"
         header={<Header title="Person name" showCloseIcon={true} />}>
-        {isRecording || !recordingData?.recordingUri
-          ? recorderView()
-          : audioPlayerView()}
+        <View style={styles.circleContainer}>
+          <CircularProgressBar
+            size={240}
+            strokeWidth={18}
+            progressPercent={recordingDuration ?? 0}
+            children={
+              isRecording || !recordingData?.recordingUri
+                ? _recorderView()
+                : _audioPlayerView()
+            }
+          />
+        </View>
         {isRecording || !recordingData?.recordingUri ? (
           <Button
             title={isRecording ? 'Stop' : 'Start'}
@@ -317,18 +352,9 @@ export default AddVoice;
 
 const makeStyles = (theme: GlobalThemeType) =>
   StyleSheet.create({
-    circle: {
-      width: 180,
-      height: 180,
-      borderColor: theme.color.black,
-      borderWidth: 1,
-      borderRadius: 100,
-      alignSelf: 'center',
-      justifyContent: 'center',
+    circleContainer: {
+      width: '100%',
       alignItems: 'center',
-      marginTop: '40%',
-      marginBottom: 30,
-      position: 'relative',
     },
     microphone: {
       width: 50,
@@ -356,5 +382,6 @@ const makeStyles = (theme: GlobalThemeType) =>
       flexDirection: 'row',
       position: 'absolute',
       bottom: 30,
+      zIndex: 5,
     },
   });
