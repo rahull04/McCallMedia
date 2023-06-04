@@ -22,7 +22,7 @@ import {
   useTheme,
 } from '../lib';
 import {Alert, Image, StyleSheet, View} from 'react-native';
-import {launchCamera} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {CameraOptions} from 'react-native-image-picker';
 import {addPhoto} from '../api';
 import {RESULTS} from 'react-native-permissions';
@@ -117,7 +117,7 @@ const AddPhoto: FunctionComponent<
       });
       return;
     }
-    const result = await launchCamera(config);
+    const result = await launchImageLibrary(config);
     logger.log('Captured image result', result);
     setCapturedImage({
       uri: result.assets?.[0]?.uri,
@@ -159,16 +159,6 @@ const AddPhoto: FunctionComponent<
       <Screen
         type="fixed"
         header={<Header title="Person name" showCloseIcon={true} />}>
-        {/* <View style={styles.circle}>
-          {capturedImage.uri ? (
-            <Image
-              source={{uri: capturedImage?.uri}}
-              style={styles.capturedImage}
-            />
-          ) : (
-            <Image source={theme.icon.add_image} style={styles.user} />
-          )}
-        </View> */}
         <View style={styles.circleContainer}>
           <CircularProgressBar
             size={240}
@@ -188,7 +178,7 @@ const AddPhoto: FunctionComponent<
           />
         </View>
         <Button
-          title={capturedImage.fileName ? 'Capture again' : 'Capture'}
+          title={capturedImage.fileName ? 'Pick image again' : 'Pick image'}
           onPress={onCapture}
         />
         <Button
