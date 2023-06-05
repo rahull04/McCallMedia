@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Button, Screen, Text, TextInput} from '../components';
-import {Image, StyleSheet} from 'react-native';
+import {Alert, Image, StyleSheet} from 'react-native';
 import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
@@ -52,8 +52,9 @@ const Login: FunctionComponent<
       );
     } catch (err) {
       logger.error('Error while initiating login for user', err);
+      Alert.alert('Error while logging in', 'Invalid username/password');
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 

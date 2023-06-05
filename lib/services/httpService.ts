@@ -5,7 +5,7 @@ import {store} from '../../store';
 
 const logger = new Logger({name: 'HttpService'});
 
-const blackList: string[] = [];
+const blackList: string[] = ['/login'];
 
 const api = axios.create({
   baseURL: API_BASE_URL,
