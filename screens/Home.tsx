@@ -1,8 +1,8 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {EventListItem, Header, Screen} from '../components';
+import {EventListItem, Header, Loader, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useTheme} from '../lib';
+import {GlobalThemeType, useStore, useTheme} from '../lib';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
 
 export interface LoginProps {}
@@ -13,6 +13,11 @@ const Home: FunctionComponent<
   const [data, setData] = useState<string[]>([]);
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const {
+    states: {
+      common: {loading},
+    },
+  } = useStore();
 
   useEffect(() => {
     var temp = [];
@@ -23,7 +28,8 @@ const Home: FunctionComponent<
   }, []);
 
   return (
-    <Screen type="fixed" header={<Header showAppName={true} />}>
+    <Screen type="fixed" header={<Header showAppName showLogoutButton />}>
+      {loading ? <Loader /> : null}
       <View style={styles.container}>
         <FlatList
           style={styles.flatListContent}

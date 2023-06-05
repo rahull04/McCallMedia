@@ -28,6 +28,7 @@ import camera_black from '../icons/camera_black.png';
 import edit_black from '../icons/edit_black.png';
 import play_black from '../icons/play_black.png';
 import stop_black from '../icons/stop_black.png';
+import logout from '../icons/logout.png';
 
 export const globalIcons = {
   calculator_active: calculatorActive,
@@ -59,4 +60,5 @@ export const globalIcons = {
   edit_black: edit_black,
   play_black: play_black,
   stop_black: stop_black,
+  logout,
 };

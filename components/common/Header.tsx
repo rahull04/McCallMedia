@@ -1,13 +1,19 @@
 import React, {useMemo} from 'react';
-import {GlobalThemeType, useTheme} from '../../lib';
+import {GlobalThemeType, Logger, useStore, useTheme} from '../../lib';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text} from './Text';
 import {useNavigation} from '@react-navigation/native';
+import {logOutUserRequest, setLoaderRequest} from '../../store';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/stack.navigation';
+import {logOut} from '../../api';
 
 interface ButtonItem {
   icon: 'back' | 'close';
   onPress: () => void;
 }
+
+const logger = new Logger({name: 'Header'});
 
 interface HeaderProps {
   readonly title?: string;
@@ -15,6 +21,7 @@ interface HeaderProps {
   readonly showCloseIcon?: boolean;
   readonly rightButtons?: ButtonItem[];
   readonly showAppName?: boolean;
+  readonly showLogoutButton?: boolean;
 }
 
 export const Header = ({
@@ -22,10 +29,18 @@ export const Header = ({
   showAppName = false,
   showBackIcon,
   showCloseIcon,
+  showLogoutButton,
 }: HeaderProps) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const {
+    dispatchAction,
+    updateState,
+    states: {
+      user: {profile},
+    },
+  } = useStore();
 
   const titleValue = useMemo(() => {
     if (showAppName) {
@@ -33,6 +48,24 @@ export const Header = ({
     }
     return title;
   }, [showAppName, title]);
+
+  const onLogOut = async () => {
+    try {
+      if (!profile?.token) {
+        return;
+      }
+      updateState(setLoaderRequest, true);
+      await logOut({
+        accessToken: profile?.token,
+      });
+      dispatchAction(logOutUserRequest);
+      navigation.replace('Login');
+    } catch (err) {
+      logger.log('Error while logging out', err);
+    } finally {
+      updateState(setLoaderRequest, false);
+    }
+  };
 
   return (
     <View style={styles.header}>
@@ -51,6 +84,11 @@ export const Header = ({
           style={styles.closeContainer}
           onPress={() => navigation.goBack()}>
           <Image source={theme.icon.close_white} style={styles.close} />
+        </TouchableOpacity>
+      ) : null}
+      {showLogoutButton ? (
+        <TouchableOpacity style={styles.closeContainer} onPress={onLogOut}>
+          <Image source={theme.icon.logout} style={styles.close} />
         </TouchableOpacity>
       ) : null}
     </View>

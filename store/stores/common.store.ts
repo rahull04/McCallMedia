@@ -9,11 +9,11 @@ export const commonStore = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    setLanguageRequest: (state, action) => {
+    setLoaderRequest: (state, action) => {
       state.loading = action.payload;
     },
   },
 });
 
-export const {setLanguageRequest} = commonStore.actions;
+export const {setLoaderRequest} = commonStore.actions;
 export default commonStore.reducer;
