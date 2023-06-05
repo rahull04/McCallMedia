@@ -1,11 +1,12 @@
 import React, {FunctionComponent, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button, Header, Screen, Text, TextInput} from '../components';
+import {Button, Screen, Text, TextInput} from '../components';
 import {Image, StyleSheet} from 'react-native';
 import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {loginUserRequest} from '../store';
+import {login} from '../api';
 
 export interface LoginProps {}
 
@@ -18,38 +19,41 @@ const Login: FunctionComponent<
   const styles = makeStyles(theme);
   const {updateState} = useStore();
   const [loginData, setLoginData] = useState({
-    userName: {
-      value: '',
+    email: {
+      value: 'vicky.codeaddict@gmail.com',
       validation: '',
     },
     password: {
-      value: '',
+      value: 'vivek123',
       validation: '',
     },
   });
-
+  const [loading, setLoading] = useState(false);
   const loginButtonDisabled =
-    !loginData.userName.value || !loginData.password.value;
+    !loginData.email.value || !loginData.password.value;
 
   const onLogin = async () => {
     try {
-      if (
-        loginData.userName.value === '123' &&
-        loginData.password.value === '123'
-      ) {
-        updateState(loginUserRequest, {
-          userName: loginData.userName.value,
-          password: loginData.password.value,
-        });
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{name: 'Home'}],
-          }),
-        );
-      }
+      setLoading(true);
+      const token = await login({
+        email: loginData.email.value,
+        password: loginData.password.value,
+      });
+      logger.log('Authentication token', token);
+      updateState(loginUserRequest, {
+        email: loginData.email.value,
+        token: token,
+      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{name: 'Home'}],
+        }),
+      );
     } catch (err) {
       logger.error('Error while initiating login for user', err);
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -58,13 +62,13 @@ const Login: FunctionComponent<
       <Image source={theme.icon.appIcon} style={styles.appLogo} />
       <Text text="Login" style={styles.screenTitle} />
       <TextInput
-        value={loginData.userName.value}
+        value={loginData.email.value}
         label="Username"
         onChangeText={value =>
           setLoginData({
             ...loginData,
-            userName: {
-              ...loginData.userName,
+            email: {
+              ...loginData.email,
               value: value,
             },
           })
@@ -88,6 +92,7 @@ const Login: FunctionComponent<
         style={styles.button}
         disabled={loginButtonDisabled}
         onPress={onLogin}
+        loading={loading}
         title="Sign in"
       />
     </Screen>
@@ -111,6 +116,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       height: 80,
       alignSelf: 'center',
       marginVertical: theme.spacing.sizes[4],
+      marginTop: 32,
     },
     checkBox: {
       padding: 10,

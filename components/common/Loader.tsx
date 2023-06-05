@@ -11,12 +11,14 @@ export const Loader = () => {
   const theme = useTheme();
 
   return (
-    <ActivityIndicator
-      style={styles.container}
-      size={'large'}
-      animating={true}
-      color={theme.color.primaryColor}
-    />
+    <View style={styles.container}>
+      <ActivityIndicator
+        size={'large'}
+        style={styles.loader}
+        animating={true}
+        color={theme.color.primaryColor}
+      />
+    </View>
   );
 };
 
@@ -31,11 +33,18 @@ export const ButtonLoader = ({color}: ButtonLoaderProps) => {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
-    marginTop: '65%',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    zIndex: 111,
+  },
+  loader: {
+    top: '35%',
   },
   buttonLoaderContainer: {
     flex: 1,
     alignSelf: 'center',
     zIndex: 111,
+    paddingVertical: 10,
   },
 });

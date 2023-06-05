@@ -1,10 +1,11 @@
 import axios from 'axios';
-import {Logger, getAccessToken} from '../utils';
+import {Logger} from '../utils';
 import {API_BASE_URL} from '@env';
+import {store} from '../../store';
 
 const logger = new Logger({name: 'HttpService'});
 
-const blackList = ['/signup'];
+const blackList: string[] = [];
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -18,7 +19,7 @@ api.interceptors.request.use(
         logger.log('Url blacklisted hence not appending the token');
         return Promise.resolve(req);
       }
-      const token = await getAccessToken();
+      const token = store.getState().user.profile?.token;
       req.headers.Authorization = `Bearer ${token}`;
     } catch (err) {
       logger.log(
