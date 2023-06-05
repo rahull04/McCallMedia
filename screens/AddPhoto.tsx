@@ -22,7 +22,10 @@ import {
   useTheme,
 } from '../lib';
 import {Alert, Image, StyleSheet, View} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  ImagePickerResponse,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 import {CameraOptions} from 'react-native-image-picker';
 import {addPhoto} from '../api';
 import {RESULTS} from 'react-native-permissions';
@@ -68,13 +71,18 @@ const AddPhoto: FunctionComponent<
     title: '',
     subtitle: '',
   });
+  const [progressStatus, setProgressStatus] = useState(0);
+  const progressIntervalRef = useRef<
+    ReturnType<typeof setInterval> | undefined
+  >();
+  const resultRef = useRef<ImagePickerResponse | undefined>();
+  const progressStatusRef = useRef(0);
 
   // Check if all the required permissions are granted by the user
   const checkPermissions = useCallback(async () => {
     let addedPermissions = 0;
     for (const permission of REQUIRED_PERMISSIONS) {
       const value = await PermissionsManager.request(permission as string);
-      console.log('value', value);
       if (value === RESULTS.GRANTED) {
         addedPermissions++;
       }
@@ -118,18 +126,44 @@ const AddPhoto: FunctionComponent<
       return;
     }
     const result = await launchImageLibrary(config);
-    logger.log('Captured image result', result);
+    if (result?.didCancel) {
+      return;
+    }
     setCapturedImage({
-      uri: result.assets?.[0]?.uri,
-      base64: result.assets?.[0]?.base64,
-      fileName: result.assets?.[0]?.fileName,
+      uri: undefined,
+      base64: undefined,
+      fileName: undefined,
     });
-    setSnackBar({
-      visible: true,
-      title: 'Image captured successfully',
-      subtitle: 'Please click on the submit button to save the image',
-    });
+    logger.log('launchImageLibrary result', result);
+    resultRef.current = result;
+    setProgressStatus(1);
   }, [checkPermissions]);
+
+  useEffect(() => {
+    if (progressStatus === 1 && progressStatusRef.current === 0) {
+      progressIntervalRef.current = setInterval(() => {
+        if (progressStatusRef.current > 100) {
+          setCapturedImage({
+            uri: resultRef.current?.assets?.[0]?.uri,
+            base64: resultRef.current?.assets?.[0]?.base64,
+            fileName: resultRef.current?.assets?.[0]?.fileName,
+          });
+          setSnackBar({
+            visible: true,
+            title: 'Image captured successfully',
+            subtitle: 'Please click on the submit button to save the image',
+          });
+          resultRef.current = undefined;
+          progressStatusRef.current = 0;
+          clearInterval(progressIntervalRef.current);
+          setProgressStatus(0);
+        } else {
+          progressStatusRef.current = progressStatusRef.current + 5;
+          setProgressStatus(status => status + 5);
+        }
+      }, 100);
+    }
+  }, [progressStatus]);
 
   useEffect(() => {
     // Check if any image data exists and write base64 image content to file
@@ -154,6 +188,10 @@ const AddPhoto: FunctionComponent<
     imageData.current = undefined;
   }, [imageData]);
 
+  useEffect(() => {
+    return () => clearInterval(progressIntervalRef.current);
+  }, []);
+
   return (
     <>
       <Screen
@@ -163,7 +201,8 @@ const AddPhoto: FunctionComponent<
           <CircularProgressBar
             size={240}
             strokeWidth={18}
-            progressPercent={0}
+            foregroundStrokeColor={theme.color.green}
+            progressPercent={progressStatus}
             backgroundStrokeColor={capturedImage.uri && theme.color.white}
             children={
               capturedImage.uri ? (

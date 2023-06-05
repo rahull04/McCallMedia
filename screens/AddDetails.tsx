@@ -77,6 +77,7 @@ const AddDetails: FunctionComponent<
       header={<Header title="Person name" showCloseIcon={true} />}>
       <TextInput
         value={details.name.value}
+        containerStyle={styles.input}
         label="Name"
         onChangeText={value =>
           setDetails({
@@ -158,5 +159,8 @@ const makeStyles = (theme: GlobalThemeType) =>
     },
     screen: {
       padding: 8,
+    },
+    input: {
+      marginTop: 32,
     },
   });
