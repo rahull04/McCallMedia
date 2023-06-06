@@ -18,6 +18,17 @@ export const login = async (body: SignInBody) => {
   }
 };
 
+export const getCompanyDetail = async (body: {accessToken: string}) => {
+  try {
+    const response = await POST('/info', body);
+    logger.log('Get company detail', response);
+    return response.data;
+  } catch (err) {
+    logger.error('Error while logging in user', body, err);
+    throw err;
+  }
+};
+
 export const logOut = async (body: {accessToken: string}) => {
   try {
     const response = await POST('/logout', body);

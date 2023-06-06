@@ -48,7 +48,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       paddingHorizontal: 14,
       paddingVertical: 16,
       borderWidth: 1,
-      borderColor: theme.color.grey,
+      borderColor: theme.color.primaryColor,
       margin: 14,
       borderRadius: 6,
     },
@@ -67,6 +67,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       width: 25,
       height: 25,
       marginHorizontal: 10,
+      tintColor: theme.color.primaryColor,
     },
     iconContainer: {
       marginTop: 16,

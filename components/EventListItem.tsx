@@ -41,7 +41,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       paddingHorizontal: 14,
       paddingVertical: 20,
       borderWidth: 1,
-      borderColor: theme.color.grey,
+      borderColor: theme.color.primaryColor,
       margin: 14,
       borderRadius: 8,
     },
@@ -49,6 +49,7 @@ const makeStyles = (theme: GlobalThemeType) =>
       width: 50,
       height: 50,
       marginRight: 20,
+      tintColor: theme.color.primaryColor,
     },
     eventName: {
       color: theme.color.black,

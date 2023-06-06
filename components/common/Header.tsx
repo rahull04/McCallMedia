@@ -152,5 +152,6 @@ const makeStyles = (theme: GlobalThemeType) =>
       width: 22,
       height: 22,
       marginLeft: 16,
+      tintColor: theme.color.white,
     },
   });
