@@ -1,6 +1,6 @@
 import {GET, Logger} from '../lib';
 
-const logger = new Logger({name: 'BookSprayApi'});
+const logger = new Logger({name: 'CompanyApi'});
 
 export const getCompanyDetails = async () => {
   try {

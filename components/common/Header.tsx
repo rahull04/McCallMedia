@@ -55,9 +55,7 @@ export const Header = ({
         return;
       }
       updateState(setLoaderRequest, true);
-      await logOut({
-        accessToken: profile?.token,
-      });
+      await logOut();
       dispatchAction(logOutUserRequest);
       navigation.replace('Login');
     } catch (err) {

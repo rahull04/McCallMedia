@@ -1,13 +1,17 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {
   RootStackParamList,
   getAuthScreenStack,
   getAuthenticatedScreenStack,
 } from './stack.navigation';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import Splash from '../screens/Splash';
 import NoNetwork from '../screens/NoNetwork';
+import {useStore} from '../lib';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -24,6 +28,21 @@ const AppStack = ({
 }: {
   initialRoute: keyof RootStackParamList;
 }) => {
+  const {
+    states: {
+      user: {profile},
+    },
+  } = useStore();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    if (!profile) {
+      navigation.navigate('Login');
+    }
+    // This needs to be called only when profile changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]);
+
   return (
     <Stack.Navigator
       screenOptions={{

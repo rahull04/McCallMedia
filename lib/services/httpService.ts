@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Logger} from '../utils';
 import {API_BASE_URL} from '@env';
-import {store} from '../../store';
+import {logOutUserRequest, store} from '../../store';
 
 const logger = new Logger({name: 'HttpService'});
 
@@ -35,6 +35,13 @@ api.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+api.interceptors.response.use(response => {
+  if (response.status === 401) {
+    store.dispatch(logOutUserRequest);
+  }
+  return Promise.resolve(response);
+});
 
 export const GET = async (
   apiURL: string,

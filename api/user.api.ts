@@ -1,6 +1,6 @@
 import {Logger, POST} from '../lib';
 
-const logger = new Logger({name: 'BookSprayApi'});
+const logger = new Logger({name: 'UserApi'});
 
 interface SignInBody {
   email: string;
@@ -18,13 +18,13 @@ export const login = async (body: SignInBody) => {
   }
 };
 
-export const logOut = async (body: {authorization: string}) => {
+export const logOut = async () => {
   try {
-    const response = await POST('/logout', body);
+    const response = await POST('/logout');
     logger.log('Logout submitted', response);
     return response.data?.token;
   } catch (err) {
-    logger.error('Error while logging out user', body, err);
+    logger.error('Error while logging out user', err);
     throw err;
   }
 };
