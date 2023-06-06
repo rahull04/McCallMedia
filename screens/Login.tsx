@@ -6,7 +6,7 @@ import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {CommonActions} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {loginUserRequest} from '../store';
-import {getCompanyDetail, login} from '../api';
+import {login} from '../api';
 
 export interface LoginProps {}
 
@@ -40,8 +40,6 @@ const Login: FunctionComponent<
         password: loginData.password.value,
       });
       logger.log('Authentication token', token);
-      const companyDetail = await getCompanyDetail({accessToken: token});
-      logger.log('companyDetail', companyDetail);
       updateState(loginUserRequest, {
         email: loginData.email.value,
         token: token,

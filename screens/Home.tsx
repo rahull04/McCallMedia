@@ -2,8 +2,11 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EventListItem, Header, Loader, Screen} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
-import {GlobalThemeType, useStore, useTheme} from '../lib';
+import {GlobalThemeType, Logger, useStore, useTheme} from '../lib';
 import {FlatList, Platform, StyleSheet, View} from 'react-native';
+import {getCompanyDetails} from '../api';
+
+const logger = new Logger({name: 'Home'});
 
 export interface LoginProps {}
 
@@ -25,6 +28,15 @@ const Home: FunctionComponent<
       temp.push('Event' + i);
     }
     setData(temp);
+    const fetchCompanyList = async () => {
+      try {
+        const companyDetail = await getCompanyDetails();
+        logger.log('companyDetail', companyDetail);
+      } catch (err) {
+        logger.error('Error while fetching company list');
+      }
+    };
+    fetchCompanyList();
   }, []);
 
   return (

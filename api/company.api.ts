@@ -2,13 +2,13 @@ import {GET, Logger} from '../lib';
 
 const logger = new Logger({name: 'BookSprayApi'});
 
-export const getCompanyDetail = async (body: {accessToken: string}) => {
+export const getCompanyDetails = async () => {
   try {
-    const response = await GET('/info', body);
-    logger.log('Get company detail', response);
+    const response = await GET('/info');
+    logger.log('Get company details response', response);
     return response.data;
   } catch (err) {
-    logger.error('Error while logging in user', body, err);
+    logger.error('Error while fetching company details', err);
     throw err;
   }
 };
