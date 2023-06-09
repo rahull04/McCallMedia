@@ -155,7 +155,8 @@ const AddPhoto: FunctionComponent<
           });
           resultRef.current = undefined;
           progressStatusRef.current = 0;
-          clearInterval(progressIntervalRef.current);
+          progressIntervalRef.current &&
+            clearInterval(progressIntervalRef.current);
           setProgressStatus(0);
         } else {
           progressStatusRef.current = progressStatusRef.current + 5;
@@ -189,7 +190,11 @@ const AddPhoto: FunctionComponent<
   }, [imageData]);
 
   useEffect(() => {
-    return () => clearInterval(progressIntervalRef.current);
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+    };
   }, []);
 
   return (
