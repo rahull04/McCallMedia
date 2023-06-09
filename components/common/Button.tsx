@@ -60,7 +60,9 @@ export const Button = ({
       disabled={showDisabledUI}
       onPress={() => !showDisabledUI && onPress()}>
       {loading ? (
-        <ButtonLoader color={loaderColor} />
+        <ButtonLoader
+          color={mode === 'secondary' ? theme.color.primaryColor : loaderColor}
+        />
       ) : (
         <Text
           style={[
