@@ -4,6 +4,7 @@ import {RESULTS} from 'react-native-permissions';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import RNFS from 'react-native-fs';
 import {AddVoiceProps} from '../../screens/AddVoice';
+import {SnackbarRefType} from '../../components';
 
 const logger = new Logger({name: 'useAudio'});
 
@@ -24,7 +25,10 @@ interface RecordingData {
 
 const MAX_RECORD_TIME = 3000;
 
-export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
+export const useAudio = (
+  existingVoiceNote?: AddVoiceProps['voice'],
+  snackBarRef?: SnackbarRefType,
+) => {
   const voiceNote = useRef(existingVoiceNote);
   // Contains the recording time
   const [recordingData, setRecordingData] = useState<RecordingData>({
@@ -42,11 +46,6 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
     playTime: '00:00',
   });
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Informs whether audio player is ON
-  const [snackBar, setSnackBar] = useState({
-    visible: false,
-    title: '',
-    subtitle: '',
-  });
 
   // Check if all the required permissions are granted by the user
   const checkPermissions = useCallback(async () => {
@@ -67,12 +66,11 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
     const areAllPermissionsGranted = await checkPermissions();
     logger.log('areAllPermissionsGranted', areAllPermissionsGranted);
     if (!areAllPermissionsGranted) {
-      setSnackBar({
-        visible: true,
-        title: 'Error while recording the audio',
-        subtitle:
-          'Please grant MICROPHONE and STORAGE permissions to the app manually from the settings to proceed',
-      });
+      snackBarRef?.showSnackBar(
+        true,
+        'Error while recording the audio',
+        'Please grant MICROPHONE and STORAGE permissions to the app manually from the settings to proceed',
+      );
       return;
     }
     setIsRecording(true);
@@ -96,7 +94,7 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
       setRecordingDuration(e.currentPosition / MAX_RECORD_TIME);
       return;
     });
-  }, [checkPermissions, recordingData]);
+  }, [checkPermissions, recordingData, snackBarRef]);
 
   const onStopRecord = useCallback(async () => {
     setIsRecording(false);
@@ -106,12 +104,12 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
     setRecordingDuration(null);
 
     setIsRecordingComplete(true);
-    setSnackBar({
-      visible: true,
-      title: 'Recording successful',
-      subtitle: 'Please click on the submit button to save the recording',
-    });
-  }, []);
+    snackBarRef?.showSnackBar(
+      true,
+      'Recording successful',
+      'Please click on the submit button to save the recording',
+    );
+  }, [snackBarRef]);
 
   const onStartPlay = useCallback(async () => {
     logger.log(
@@ -191,10 +189,6 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSnackBarDismiss = () => {
-    setSnackBar({...snackBar, visible: false});
-  };
-
   return {
     recordingData,
     onStartRecord,
@@ -206,7 +200,5 @@ export const useAudio = (existingVoiceNote?: AddVoiceProps['voice']) => {
     isRecordingComplete,
     playBackData,
     isAudioPlaying,
-    snackBar,
-    onSnackBarDismiss,
   };
 };

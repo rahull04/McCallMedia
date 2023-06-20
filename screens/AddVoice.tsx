@@ -1,6 +1,13 @@
-import React, {FunctionComponent, useCallback, useState} from 'react';
+import React, {FunctionComponent, useCallback, useRef, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Button, Header, Screen, Snackbar, Text} from '../components';
+import {
+  Button,
+  Header,
+  Screen,
+  Snackbar,
+  SnackbarRefType,
+  Text,
+} from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {GlobalThemeType, Logger, useTheme} from '../lib';
 import {Alert, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
@@ -28,6 +35,7 @@ const AddVoice: FunctionComponent<
 > = ({route}) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
+  const snackBarRef = useRef<SnackbarRefType>(null);
   const {
     recordingData,
     onStartRecord,
@@ -39,9 +47,7 @@ const AddVoice: FunctionComponent<
     isRecordingComplete,
     playBackData,
     isAudioPlaying,
-    snackBar,
-    onSnackBarDismiss,
-  } = useAudio(route.params.voice);
+  } = useAudio(route.params.voice, snackBarRef.current);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = useCallback(async () => {
@@ -164,12 +170,7 @@ const AddVoice: FunctionComponent<
           onPress={onSubmit}
         />
       </Screen>
-      <Snackbar
-        visible={snackBar.visible}
-        onDismiss={onSnackBarDismiss}
-        title={snackBar.title}
-        subTitle={snackBar.subtitle}
-      />
+      <Snackbar ref={snackBarRef} />
     </>
   );
 };

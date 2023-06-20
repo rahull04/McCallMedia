@@ -12,6 +12,7 @@ import {
   Header,
   Screen,
   Snackbar,
+  SnackbarRefType,
 } from '../components';
 import {RootStackParamList} from '../navigation/stack.navigation';
 import {
@@ -66,11 +67,7 @@ const AddPhoto: FunctionComponent<
     fileName: undefined,
   });
   const [loading, setLoading] = useState(false);
-  const [snackBar, setSnackBar] = useState({
-    visible: false,
-    title: '',
-    subtitle: '',
-  });
+  const snackBarRef = useRef<SnackbarRefType>(null);
   const [progressStatus, setProgressStatus] = useState(0);
   const progressIntervalRef = useRef<
     ReturnType<typeof setInterval> | undefined
@@ -117,12 +114,11 @@ const AddPhoto: FunctionComponent<
     const areAllPermissionsGranted = await checkPermissions();
     logger.log('areAllPermissionsGranted', areAllPermissionsGranted);
     if (!areAllPermissionsGranted) {
-      setSnackBar({
-        visible: true,
-        title: 'Error while launching the device camera',
-        subtitle:
-          'Please grant CAMERA permission to the app manually from the settings to proceed',
-      });
+      snackBarRef.current?.showSnackBar(
+        true,
+        'Error while launching the device camera',
+        'Please grant CAMERA permission to the app manually from the settings to proceed',
+      );
       return;
     }
     const result = await launchImageLibrary(config);
@@ -148,11 +144,11 @@ const AddPhoto: FunctionComponent<
             base64: resultRef.current?.assets?.[0]?.base64,
             fileName: resultRef.current?.assets?.[0]?.fileName,
           });
-          setSnackBar({
-            visible: true,
-            title: 'Image captured successfully',
-            subtitle: 'Please click on the submit button to save the image',
-          });
+          snackBarRef.current?.showSnackBar(
+            true,
+            'Image captured successfully',
+            'Please click on the submit button to save the image',
+          );
           resultRef.current = undefined;
           progressStatusRef.current = 0;
           progressIntervalRef.current &&
@@ -233,12 +229,7 @@ const AddPhoto: FunctionComponent<
           loading={loading}
         />
       </Screen>
-      <Snackbar
-        visible={snackBar.visible}
-        onDismiss={() => setSnackBar({...snackBar, visible: false})}
-        title={snackBar.title}
-        subTitle={snackBar.subtitle}
-      />
+      <Snackbar ref={snackBarRef} />
     </>
   );
 };
